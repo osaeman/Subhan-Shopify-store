@@ -1,0 +1,548 @@
+{% doc %}
+  @prompt
+    Create a sleek modern announcement bar section with continuous horizontal scrolling text animation. The text should smoothly slide from right to left across the screen and seamlessly loop back, creating an infinite marquee effect. The design should be minimal and contemporary with smooth CSS animations that make the text enter from one side and continuously re-enter from the other side without any gaps or pauses and make it like that so I can add three different texts, rather than adding only one. Also, provide the control option for everything - every text and box (like size, weight, spacing, height, background colour and text color and other important CSS styling properties for full accessibility for customization), and the section must be mobile- and tablet-responsive and provide full control also for the mobile- and tablet versions. and currently the item (text) spacing has the maximum value of 200., Everything else is good. Also add a separator dot and provide control for its size, color, position, or gap distance. (in desktop, mobile and tablet version CSS styling options) and also provide display on/off option for this separator dot)
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-marquee-announcement-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background-color: {{ block.settings.background_color }};
+    position: relative;
+  }
+
+  .ai-marquee-container-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    height: {{ block.settings.bar_height }}px;
+  }
+
+  .ai-marquee-track-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: ai-marquee-scroll-{{ ai_gen_id }} {{ block.settings.animation_speed }}s linear infinite;
+  }
+
+  .ai-marquee-item-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    padding: 0 {{ block.settings.item_spacing }}px;
+  }
+
+  .ai-marquee-separator-{{ ai_gen_id }} {
+    display: {% if block.settings.show_separator %}inline-flex{% else %}none{% endif %};
+    align-items: center;
+    justify-content: center;
+    margin: 0 {{ block.settings.separator_gap }}px;
+  }
+
+  .ai-marquee-separator-{{ ai_gen_id }}::before {
+    content: '';
+    width: {{ block.settings.separator_size }}px;
+    height: {{ block.settings.separator_size }}px;
+    background-color: {{ block.settings.separator_color }};
+    border-radius: 50%;
+    transform: translateY({{ block.settings.separator_position }}px);
+  }
+
+  @keyframes ai-marquee-scroll-{{ ai_gen_id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-marquee-container-{{ ai_gen_id }} {
+      height: {{ block.settings.bar_height_tablet }}px;
+    }
+
+    .ai-marquee-item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size_tablet }}px;
+      letter-spacing: {{ block.settings.letter_spacing_tablet }}px;
+      padding: 0 {{ block.settings.item_spacing_tablet }}px;
+    }
+
+    .ai-marquee-track-{{ ai_gen_id }} {
+      animation-duration: {{ block.settings.animation_speed_tablet }}s;
+    }
+
+    .ai-marquee-separator-{{ ai_gen_id }} {
+      margin: 0 {{ block.settings.separator_gap_tablet }}px;
+    }
+
+    .ai-marquee-separator-{{ ai_gen_id }}::before {
+      width: {{ block.settings.separator_size_tablet }}px;
+      height: {{ block.settings.separator_size_tablet }}px;
+      transform: translateY({{ block.settings.separator_position_tablet }}px);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-marquee-container-{{ ai_gen_id }} {
+      height: {{ block.settings.bar_height_mobile }}px;
+    }
+
+    .ai-marquee-item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size_mobile }}px;
+      letter-spacing: {{ block.settings.letter_spacing_mobile }}px;
+      padding: 0 {{ block.settings.item_spacing_mobile }}px;
+    }
+
+    .ai-marquee-track-{{ ai_gen_id }} {
+      animation-duration: {{ block.settings.animation_speed_mobile }}s;
+    }
+
+    .ai-marquee-separator-{{ ai_gen_id }} {
+      margin: 0 {{ block.settings.separator_gap_mobile }}px;
+    }
+
+    .ai-marquee-separator-{{ ai_gen_id }}::before {
+      width: {{ block.settings.separator_size_mobile }}px;
+      height: {{ block.settings.separator_size_mobile }}px;
+      transform: translateY({{ block.settings.separator_position_mobile }}px);
+    }
+  }
+{% endstyle %}
+
+<marquee-announcement-{{ ai_gen_id }} class="ai-marquee-announcement-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-marquee-container-{{ ai_gen_id }}">
+    <div class="ai-marquee-track-{{ ai_gen_id }}">
+      {% liquid
+        assign text_1 = block.settings.text_1
+        assign text_2 = block.settings.text_2
+        assign text_3 = block.settings.text_3
+        assign texts = ''
+        
+        if text_1 != blank
+          assign texts = texts | append: text_1
+        endif
+        
+        if text_2 != blank
+          if texts != blank
+            assign texts = texts | append: '|||' | append: text_2
+          else
+            assign texts = text_2
+          endif
+        endif
+        
+        if text_3 != blank
+          if texts != blank
+            assign texts = texts | append: '|||' | append: text_3
+          else
+            assign texts = text_3
+          endif
+        endif
+        
+        assign text_array = texts | split: '|||'
+      %}
+
+      {% for i in (1..2) %}
+        {% for text in text_array %}
+          {% if text != blank %}
+            <span class="ai-marquee-item-{{ ai_gen_id }}">{{ text }}</span>
+            {% unless forloop.last %}
+              <span class="ai-marquee-separator-{{ ai_gen_id }}"></span>
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</marquee-announcement-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class MarqueeAnnouncement{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-marquee-track-{{ ai_gen_id }}');
+        this.adjustAnimation();
+      }
+
+      adjustAnimation() {
+        if (!this.track) return;
+        
+        const firstItem = this.track.querySelector('.ai-marquee-item-{{ ai_gen_id }}');
+        if (!firstItem) return;
+        
+        const trackWidth = this.track.scrollWidth / 2;
+        this.track.style.width = trackWidth * 2 + 'px';
+      }
+    }
+
+    customElements.define('marquee-announcement-{{ ai_gen_id }}', MarqueeAnnouncement{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Marquee announcement bar",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text 1",
+      "default": "Free shipping on orders over $50"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text 2",
+      "default": "Shop the latest collection"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text 3",
+      "default": "Limited time offer - 20% off"
+    },
+    {
+      "type": "header",
+      "content": "Desktop style"
+    },
+    {
+      "type": "range",
+      "id": "bar_height",
+      "label": "Bar height",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "Item spacing",
+      "min": 20,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Animation speed",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "s",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Tablet style"
+    },
+    {
+      "type": "range",
+      "id": "bar_height_tablet",
+      "label": "Bar height",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "font_size_tablet",
+      "label": "Font size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing_tablet",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "item_spacing_tablet",
+      "label": "Item spacing",
+      "min": 20,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "animation_speed_tablet",
+      "label": "Animation speed",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "s",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Mobile style"
+    },
+    {
+      "type": "range",
+      "id": "bar_height_mobile",
+      "label": "Bar height",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Font size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing_mobile",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "item_spacing_mobile",
+      "label": "Item spacing",
+      "min": 20,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "animation_speed_mobile",
+      "label": "Animation speed",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "s",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Separator"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separator",
+      "label": "Show separator",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator color",
+      "default": "#edffa7"
+    },
+    {
+      "type": "header",
+      "content": "Separator desktop"
+    },
+    {
+      "type": "range",
+      "id": "separator_size",
+      "label": "Size",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "separator_gap",
+      "label": "Gap distance",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "separator_position",
+      "label": "Vertical position",
+      "min": -10,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Separator tablet"
+    },
+    {
+      "type": "range",
+      "id": "separator_size_tablet",
+      "label": "Size",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "separator_gap_tablet",
+      "label": "Gap distance",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "separator_position_tablet",
+      "label": "Vertical position",
+      "min": -10,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Separator mobile"
+    },
+    {
+      "type": "range",
+      "id": "separator_size_mobile",
+      "label": "Size",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "separator_gap_mobile",
+      "label": "Gap distance",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "separator_position_mobile",
+      "label": "Vertical position",
+      "min": -10,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#2e2a39"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#edffa7"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee announcement bar"
+    }
+  ]
+}
+{% endschema %}
