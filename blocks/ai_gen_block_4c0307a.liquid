@@ -3,261 +3,283 @@
     want you to design a section; the section will be about the top-selling product. The section will have a heading first, and then the section will have two boxes horizontally; the image option will be on the left side, and on the right side, there will be the textual part, which will contain the title of that product then a small text (Unstitched | lawn ) (with display on/off) option also and the description text, a text bar that says how many pieces have already been sold, and a sleek and beautiful sale tag (placed somewhere appropriate—that also has the option to hide or display: none it as well where there is no sale). price of the product (off course with the compare price option) and a sleek, modern button or cart-shaped icon or button that will let the user proceed directly to the cart or order page. The overall design of the section must be sleek, modern, minimalist and elegant e-commerce UI. Also, provide the control option for everything for every text, image, heading, product title, tag, button, price text, already sold pieces part design, layout of section (like all side margins, all side paddings, size, colour, font-weight, line height, grid gap, image properties like object-fit, object position, image box shadow( and other important CSS styling properties for full accessibility for customization), and the section must be mobile- and tablet-responsive and provide full control (as for desktop version) for the mobile- and tablet versions also so I can tweak things a bit accordingly., Everything is good, but there are a few more changes. provide the height of the image option also. (for desktop, tablet and mobile versions), as both the parts have unequal height which does not seem right.  and instead of a content spacing option provide one property like margin top or margin bottom for all the content so that the spacing can be individually and manually adjusted.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign selected_product = block.settings.product %}
+{% assign selected_variant = blank %}
+{% assign top_product_button_url = block.settings.button_link %}
+{% assign top_product_has_discount = false %}
+{% assign top_product_discount_percent = 0 %}
+
+{% if selected_product != blank %}
+  {% assign selected_variant = selected_product.selected_or_first_available_variant %}
+  {% if top_product_button_url == blank and selected_product != blank %}
+    {% assign top_product_button_url = selected_product.url %}
+  {% endif %}
+
+  {% if selected_variant.compare_at_price > selected_variant.price %}
+    {% assign top_product_has_discount = true %}
+    {% assign top_product_discount_amount = selected_variant.compare_at_price | minus: selected_variant.price %}
+    {% assign top_product_discount_raw = top_product_discount_amount
+      | times: 100
+      | divided_by: selected_variant.compare_at_price
+    %}
+    {% assign top_product_discount_percent = top_product_discount_raw | round %}
+  {% endif %}
+{% endif %}
 
 {% style %}
-  .ai-top-product-{{ ai_gen_id }} {
-    display: block;
-    width: 100%;
-    padding: {{ block.settings.section_padding_top }}px {{ block.settings.section_padding_right }}px {{ block.settings.section_padding_bottom }}px {{ block.settings.section_padding_left }}px;
-    margin: {{ block.settings.section_margin_top }}px {{ block.settings.section_margin_right }}px {{ block.settings.section_margin_bottom }}px {{ block.settings.section_margin_left }}px;
-    background-color: {{ block.settings.section_bg_color }};
-  }
+     .ai-top-product-{{ ai_gen_id }} {
+       display: block;
+       width: 100%;
+       padding: {{ block.settings.section_padding_top }}px {{ block.settings.section_padding_right }}px {{ block.settings.section_padding_bottom }}px {{ block.settings.section_padding_left }}px;
+       margin: {{ block.settings.section_margin_top }}px {{ block.settings.section_margin_right }}px {{ block.settings.section_margin_bottom }}px {{ block.settings.section_margin_left }}px;
+       background-color: {{ block.settings.section_bg_color }};
+     }
 
-  .ai-top-product-container-{{ ai_gen_id }} {
-    max-width: {{ block.settings.container_max_width }}px;
-    margin: 0 auto;
-  }
+     .ai-top-product-container-{{ ai_gen_id }} {
+       max-width: {{ block.settings.container_max_width }}px;
+       margin: 0 auto;
+     }
 
-  .ai-top-product-heading-{{ ai_gen_id }} {
-    font-size: {{ block.settings.heading_font_size }}px;
-    font-weight: {{ block.settings.heading_font_weight }};
-    line-height: {{ block.settings.heading_line_height }};
-    color: {{ block.settings.heading_color }};
-    text-align: {{ block.settings.heading_alignment }};
-    margin: 0 0 {{ block.settings.heading_margin_bottom }}px 0;
-  }
+     .ai-top-product-heading-{{ ai_gen_id }} {
+       font-size: {{ block.settings.heading_font_size }}px;
+       font-weight: {{ block.settings.heading_font_weight }};
+       line-height: {{ block.settings.heading_line_height }};
+       color: {{ block.settings.heading_color }};
+       text-align: {{ block.settings.heading_alignment }};
+       margin: 0 0 {{ block.settings.heading_margin_bottom }}px 0;
+     }
 
-  .ai-top-product-grid-{{ ai_gen_id }} {
-    display: grid;
-    grid-template-columns: {{ block.settings.image_width_percent }}% 1fr;
-    gap: {{ block.settings.grid_gap }}px;
-    align-items: {{ block.settings.grid_align_items }};
-  }
+     .ai-top-product-grid-{{ ai_gen_id }} {
+       display: grid;
+       grid-template-columns: {{ block.settings.image_width_percent }}% 1fr;
+       gap: {{ block.settings.grid_gap }}px;
+       align-items: {{ block.settings.grid_align_items }};
+     }
 
-  .ai-top-product-image-wrapper-{{ ai_gen_id }} {
-    position: relative;
-    width: 100%;
-    height: {{ block.settings.image_height }}px;
-    overflow: hidden;
-    border-radius: {{ block.settings.image_border_radius }}px;
-    box-shadow: {{ block.settings.image_shadow_x }}px {{ block.settings.image_shadow_y }}px {{ block.settings.image_shadow_blur }}px {{ block.settings.image_shadow_color }};
-  }
+     .ai-top-product-image-wrapper-{{ ai_gen_id }} {
+       position: relative;
+       width: 100%;
+       height: {{ block.settings.image_height }}px;
+       overflow: hidden;
+       border-radius: {{ block.settings.image_border_radius }}px;
+       box-shadow: {{ block.settings.image_shadow_x }}px {{ block.settings.image_shadow_y }}px {{ block.settings.image_shadow_blur }}px {{ block.settings.image_shadow_color }};
+     }
 
-  .ai-top-product-image-{{ ai_gen_id }} {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: {{ block.settings.image_object_fit }};
-    object-position: {{ block.settings.image_object_position }};
-  }
+     .ai-top-product-image-{{ ai_gen_id }} {
+       width: 100%;
+       height: 100%;
+       display: block;
+       object-fit: {{ block.settings.image_object_fit }};
+       object-position: {{ block.settings.image_object_position }};
+     }
 
-  .ai-top-product-image-placeholder-{{ ai_gen_id }} {
-    width: 100%;
-    height: 100%;
-    background-color: #f4f4f4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+     .ai-top-product-image-placeholder-{{ ai_gen_id }} {
+       width: 100%;
+       height: 100%;
+       background-color: #f4f4f4;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+     }
 
-  .ai-top-product-image-placeholder-{{ ai_gen_id }} svg {
-    width: 100%;
-    height: 100%;
-    max-width: 300px;
-    max-height: 300px;
-  }
+     .ai-top-product-image-placeholder-{{ ai_gen_id }} svg {
+       width: 100%;
+       height: 100%;
+       max-width: 300px;
+       max-height: 300px;
+     }
 
-  .ai-top-product-sale-badge-{{ ai_gen_id }} {
-    position: absolute;
-    top: {{ block.settings.sale_badge_top }}px;
-    right: {{ block.settings.sale_badge_right }}px;
-    background: {{ block.settings.sale_badge_bg_color }};
-    color: {{ block.settings.sale_badge_text_color }};
-    padding: {{ block.settings.sale_badge_padding_vertical }}px {{ block.settings.sale_badge_padding_horizontal }}px;
-    border-radius: {{ block.settings.sale_badge_border_radius }}px;
-    font-size: {{ block.settings.sale_badge_font_size }}px;
-    font-weight: {{ block.settings.sale_badge_font_weight }};
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
+     .ai-top-product-sale-badge-{{ ai_gen_id }} {
+       position: absolute;
+       top: {{ block.settings.sale_badge_top }}px;
+       right: {{ block.settings.sale_badge_right }}px;
+       background: {{ block.settings.sale_badge_bg_color }};
+       color: {{ block.settings.sale_badge_text_color }};
+       padding: {{ block.settings.sale_badge_padding_vertical }}px {{ block.settings.sale_badge_padding_horizontal }}px;
+       border-radius: {{ block.settings.sale_badge_border_radius }}px;
+       font-size: {{ block.settings.sale_badge_font_size }}px;
+       font-weight: {{ block.settings.sale_badge_font_weight }};
+       text-transform: uppercase;
+       letter-spacing: 0.5px;
+       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+     }
 
-  .ai-top-product-content-{{ ai_gen_id }} {
-    display: flex;
-    flex-direction: column;
-  }
+     .ai-top-product-content-{{ ai_gen_id }} {
+       display: flex;
+       flex-direction: column;
+     }
 
-  .ai-top-product-title-{{ ai_gen_id }} {
-    font-size: {{ block.settings.title_font_size }}px;
-    font-weight: {{ block.settings.title_font_weight }};
-    line-height: {{ block.settings.title_line_height }};
-    color: {{ block.settings.title_color }};
-    margin: {{ block.settings.title_margin_top }}px 0 {{ block.settings.title_margin_bottom }}px 0;
-  }
+     .ai-top-product-title-{{ ai_gen_id }} {
+       font-size: {{ block.settings.title_font_size }}px;
+       font-weight: {{ block.settings.title_font_weight }};
+       line-height: {{ block.settings.title_line_height }};
+       color: {{ block.settings.title_color }};
+       margin: {{ block.settings.title_margin_top }}px 0 {{ block.settings.title_margin_bottom }}px 0;
+     }
 
-  .ai-top-product-meta-{{ ai_gen_id }} {
-    font-size: {{ block.settings.meta_font_size }}px;
-    font-weight: {{ block.settings.meta_font_weight }};
-    color: {{ block.settings.meta_color }};
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: {{ block.settings.meta_margin_top }}px 0 {{ block.settings.meta_margin_bottom }}px 0;
-  }
+     .ai-top-product-meta-{{ ai_gen_id }} {
+       font-size: {{ block.settings.meta_font_size }}px;
+       font-weight: {{ block.settings.meta_font_weight }};
+       color: {{ block.settings.meta_color }};
+       text-transform: uppercase;
+       letter-spacing: 1px;
+       margin: {{ block.settings.meta_margin_top }}px 0 {{ block.settings.meta_margin_bottom }}px 0;
+     }
 
-  .ai-top-product-description-{{ ai_gen_id }} {
-    font-size: {{ block.settings.description_font_size }}px;
-    line-height: {{ block.settings.description_line_height }};
-    color: {{ block.settings.description_color }};
-    margin: {{ block.settings.description_margin_top }}px 0 {{ block.settings.description_margin_bottom }}px 0;
-  }
+     .ai-top-product-description-{{ ai_gen_id }} {
+       font-size: {{ block.settings.description_font_size }}px;
+       line-height: {{ block.settings.description_line_height }};
+       color: {{ block.settings.description_color }};
+       margin: {{ block.settings.description_margin_top }}px 0 {{ block.settings.description_margin_bottom }}px 0;
+     }
 
-  .ai-top-product-sold-bar-{{ ai_gen_id }} {
-    background-color: {{ block.settings.sold_bar_bg_color }};
-    border-radius: {{ block.settings.sold_bar_border_radius }}px;
-    padding: {{ block.settings.sold_bar_padding_vertical }}px {{ block.settings.sold_bar_padding_horizontal }}px;
-    border: {{ block.settings.sold_bar_border_width }}px solid {{ block.settings.sold_bar_border_color }};
-    margin: {{ block.settings.sold_bar_margin_top }}px 0 {{ block.settings.sold_bar_margin_bottom }}px 0;
-  }
+     .ai-top-product-sold-bar-{{ ai_gen_id }} {
+       background-color: {{ block.settings.sold_bar_bg_color }};
+       border-radius: {{ block.settings.sold_bar_border_radius }}px;
+       padding: {{ block.settings.sold_bar_padding_vertical }}px {{ block.settings.sold_bar_padding_horizontal }}px;
+       border: {{ block.settings.sold_bar_border_width }}px solid {{ block.settings.sold_bar_border_color }};
+       margin: {{ block.settings.sold_bar_margin_top }}px 0 {{ block.settings.sold_bar_margin_bottom }}px 0;
+     }
 
-  .ai-top-product-sold-text-{{ ai_gen_id }} {
-    font-size: {{ block.settings.sold_text_font_size }}px;
-    font-weight: {{ block.settings.sold_text_font_weight }};
-    color: {{ block.settings.sold_text_color }};
-    margin: 0;
-  }
+     .ai-top-product-sold-text-{{ ai_gen_id }} {
+       font-size: {{ block.settings.sold_text_font_size }}px;
+       font-weight: {{ block.settings.sold_text_font_weight }};
+       color: {{ block.settings.sold_text_color }};
+       margin: 0;
+     }
 
-  .ai-top-product-sold-count-{{ ai_gen_id }} {
-    color: {{ block.settings.sold_count_color }};
-    font-weight: {{ block.settings.sold_count_font_weight }};
-  }
+     .ai-top-product-sold-count-{{ ai_gen_id }} {
+       color: {{ block.settings.sold_count_color }};
+       font-weight: {{ block.settings.sold_count_font_weight }};
+     }
 
-  .ai-top-product-price-wrapper-{{ ai_gen_id }} {
-    display: flex;
-    align-items: center;
-    gap: {{ block.settings.price_gap }}px;
-    margin: {{ block.settings.price_margin_top }}px 0 {{ block.settings.price_margin_bottom }}px 0;
-  }
+     .ai-top-product-price-wrapper-{{ ai_gen_id }} {
+       display: flex;
+       align-items: center;
+       gap: {{ block.settings.price_gap }}px;
+       margin: {{ block.settings.price_margin_top }}px 0 {{ block.settings.price_margin_bottom }}px 0;
+     }
 
-  .ai-top-product-price-{{ ai_gen_id }} {
-    font-size: {{ block.settings.price_font_size }}px;
-    font-weight: {{ block.settings.price_font_weight }};
-    color: {{ block.settings.price_color }};
-    margin: 0;
-  }
+     .ai-top-product-price-{{ ai_gen_id }} {
+       font-size: {{ block.settings.price_font_size }}px;
+       font-weight: {{ block.settings.price_font_weight }};
+       color: {{ block.settings.price_color }};
+       margin: 0;
+     }
 
-  .ai-top-product-compare-price-{{ ai_gen_id }} {
-    font-size: {{ block.settings.compare_price_font_size }}px;
-    font-weight: {{ block.settings.compare_price_font_weight }};
-    color: {{ block.settings.compare_price_color }};
-    text-decoration: line-through;
-    opacity: 0.7;
-  }
+     .ai-top-product-compare-price-{{ ai_gen_id }} {
+       font-size: {{ block.settings.compare_price_font_size }}px;
+       font-weight: {{ block.settings.compare_price_font_weight }};
+       color: {{ block.settings.compare_price_color }};
+       text-decoration: line-through;
+       opacity: 0.7;
+     }
+  .ai-top-product-discount-text-{{ ai_gen_id }} { font-size: {{ block.settings.discount_text_font_size_desktop }}px; font-weight: {{ block.settings.discount_text_font_weight }}; color: {{ block.settings.discount_text_color }}; margin: 0; letter-spacing: {{ block.settings.discount_text_letter_spacing }}px; text-transform: {% if block.settings.discount_text_uppercase %}uppercase{% else %}none{% endif %}; padding: {{ block.settings.discount_text_padding_vertical }}px {{ block.settings.discount_text_padding_horizontal }}px; border-radius: {{ block.settings.discount_text_border_radius }}px; background: {{ block.settings.discount_text_background }}; line-height: 1; display: inline-flex; align-items: center; justify-content: center; } @media screen and (max-width: 749px) { .ai-top-product-discount-text-{{ ai_gen_id }} { font-size: {{ block.settings.discount_text_font_size_mobile }}px; } }
+     .ai-top-product-button-{{ ai_gen_id }} {
+       display: inline-flex;
+       align-items: center;
+       justify-content: center;
+       gap: 8px;
+       background-color: {{ block.settings.button_bg_color }};
+       color: {{ block.settings.button_text_color }};
+       padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+       border-radius: {{ block.settings.button_border_radius }}px;
+       font-size: {{ block.settings.button_font_size }}px;
+       font-weight: {{ block.settings.button_font_weight }};
+       text-decoration: none;
+       border: none;
+       cursor: pointer;
+       transition: all 0.3s ease;
+       width: {{ block.settings.button_width }};
+       margin: {{ block.settings.button_margin_top }}px 0 {{ block.settings.button_margin_bottom }}px 0;
+     }
 
-  .ai-top-product-button-{{ ai_gen_id }} {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background-color: {{ block.settings.button_bg_color }};
-    color: {{ block.settings.button_text_color }};
-    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
-    border-radius: {{ block.settings.button_border_radius }}px;
-    font-size: {{ block.settings.button_font_size }}px;
-    font-weight: {{ block.settings.button_font_weight }};
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: {{ block.settings.button_width }};
-    margin: {{ block.settings.button_margin_top }}px 0 {{ block.settings.button_margin_bottom }}px 0;
-  }
+     .ai-top-product-button-{{ ai_gen_id }}:hover {
+       background-color: {{ block.settings.button_hover_bg_color }};
+       color: {{ block.settings.button_hover_text_color }};
+       transform: translateY(-2px);
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+     }
 
-  .ai-top-product-button-{{ ai_gen_id }}:hover {
-    background-color: {{ block.settings.button_hover_bg_color }};
-    color: {{ block.settings.button_hover_text_color }};
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
+     .ai-top-product-cart-icon-{{ ai_gen_id }} {
+       width: {{ block.settings.cart_icon_size }}px;
+       height: {{ block.settings.cart_icon_size }}px;
+     }
 
-  .ai-top-product-cart-icon-{{ ai_gen_id }} {
-    width: {{ block.settings.cart_icon_size }}px;
-    height: {{ block.settings.cart_icon_size }}px;
-  }
+     @media screen and (max-width: 989px) {
+       .ai-top-product-{{ ai_gen_id }} {
+         padding: {{ block.settings.section_padding_top_tablet }}px {{ block.settings.section_padding_right_tablet }}px {{ block.settings.section_padding_bottom_tablet }}px {{ block.settings.section_padding_left_tablet }}px;
+         margin: {{ block.settings.section_margin_top_tablet }}px {{ block.settings.section_margin_right_tablet }}px {{ block.settings.section_margin_bottom_tablet }}px {{ block.settings.section_margin_left_tablet }}px;
+       }
 
-  @media screen and (max-width: 989px) {
-    .ai-top-product-{{ ai_gen_id }} {
-      padding: {{ block.settings.section_padding_top_tablet }}px {{ block.settings.section_padding_right_tablet }}px {{ block.settings.section_padding_bottom_tablet }}px {{ block.settings.section_padding_left_tablet }}px;
-      margin: {{ block.settings.section_margin_top_tablet }}px {{ block.settings.section_margin_right_tablet }}px {{ block.settings.section_margin_bottom_tablet }}px {{ block.settings.section_margin_left_tablet }}px;
-    }
+       .ai-top-product-grid-{{ ai_gen_id }} {
+         grid-template-columns: 1fr;
+         gap: {{ block.settings.grid_gap_tablet }}px;
+       }
 
-    .ai-top-product-grid-{{ ai_gen_id }} {
-      grid-template-columns: 1fr;
-      gap: {{ block.settings.grid_gap_tablet }}px;
-    }
+       .ai-top-product-image-wrapper-{{ ai_gen_id }} {
+         height: {{ block.settings.image_height_tablet }}px;
+       }
 
-    .ai-top-product-image-wrapper-{{ ai_gen_id }} {
-      height: {{ block.settings.image_height_tablet }}px;
-    }
+       .ai-top-product-heading-{{ ai_gen_id }} {
+         font-size: {{ block.settings.heading_font_size_tablet }}px;
+         margin-bottom: {{ block.settings.heading_margin_bottom_tablet }}px;
+       }
 
-    .ai-top-product-heading-{{ ai_gen_id }} {
-      font-size: {{ block.settings.heading_font_size_tablet }}px;
-      margin-bottom: {{ block.settings.heading_margin_bottom_tablet }}px;
-    }
+       .ai-top-product-title-{{ ai_gen_id }} {
+         font-size: {{ block.settings.title_font_size_tablet }}px;
+       }
 
-    .ai-top-product-title-{{ ai_gen_id }} {
-      font-size: {{ block.settings.title_font_size_tablet }}px;
-    }
+       .ai-top-product-description-{{ ai_gen_id }} {
+         font-size: {{ block.settings.description_font_size_tablet }}px;
+       }
 
-    .ai-top-product-description-{{ ai_gen_id }} {
-      font-size: {{ block.settings.description_font_size_tablet }}px;
-    }
+       .ai-top-product-price-{{ ai_gen_id }} {
+         font-size: {{ block.settings.price_font_size_tablet }}px;
+       }
 
-    .ai-top-product-price-{{ ai_gen_id }} {
-      font-size: {{ block.settings.price_font_size_tablet }}px;
-    }
+       .ai-top-product-button-{{ ai_gen_id }} {
+         font-size: {{ block.settings.button_font_size_tablet }}px;
+         padding: {{ block.settings.button_padding_vertical_tablet }}px {{ block.settings.button_padding_horizontal_tablet }}px;
+       }
+     }
 
-    .ai-top-product-button-{{ ai_gen_id }} {
-      font-size: {{ block.settings.button_font_size_tablet }}px;
-      padding: {{ block.settings.button_padding_vertical_tablet }}px {{ block.settings.button_padding_horizontal_tablet }}px;
-    }
-  }
+     @media screen and (max-width: 749px) {
+       .ai-top-product-{{ ai_gen_id }} {
+         padding: {{ block.settings.section_padding_top_mobile }}px {{ block.settings.section_padding_right_mobile }}px {{ block.settings.section_padding_bottom_mobile }}px {{ block.settings.section_padding_left_mobile }}px;
+         margin: {{ block.settings.section_margin_top_mobile }}px {{ block.settings.section_margin_right_mobile }}px {{ block.settings.section_margin_bottom_mobile }}px {{ block.settings.section_margin_left_mobile }}px;
+       }
 
-  @media screen and (max-width: 749px) {
-    .ai-top-product-{{ ai_gen_id }} {
-      padding: {{ block.settings.section_padding_top_mobile }}px {{ block.settings.section_padding_right_mobile }}px {{ block.settings.section_padding_bottom_mobile }}px {{ block.settings.section_padding_left_mobile }}px;
-      margin: {{ block.settings.section_margin_top_mobile }}px {{ block.settings.section_margin_right_mobile }}px {{ block.settings.section_margin_bottom_mobile }}px {{ block.settings.section_margin_left_mobile }}px;
-    }
+       .ai-top-product-grid-{{ ai_gen_id }} {
+         gap: {{ block.settings.grid_gap_mobile }}px;
+       }
 
-    .ai-top-product-grid-{{ ai_gen_id }} {
-      gap: {{ block.settings.grid_gap_mobile }}px;
-    }
+       .ai-top-product-image-wrapper-{{ ai_gen_id }} {
+         height: {{ block.settings.image_height_mobile }}px;
+       }
 
-    .ai-top-product-image-wrapper-{{ ai_gen_id }} {
-      height: {{ block.settings.image_height_mobile }}px;
-    }
+       .ai-top-product-heading-{{ ai_gen_id }} {
+         font-size: {{ block.settings.heading_font_size_mobile }}px;
+         margin-bottom: {{ block.settings.heading_margin_bottom_mobile }}px;
+       }
 
-    .ai-top-product-heading-{{ ai_gen_id }} {
-      font-size: {{ block.settings.heading_font_size_mobile }}px;
-      margin-bottom: {{ block.settings.heading_margin_bottom_mobile }}px;
-    }
+       .ai-top-product-title-{{ ai_gen_id }} {
+         font-size: {{ block.settings.title_font_size_mobile }}px;
+       }
 
-    .ai-top-product-title-{{ ai_gen_id }} {
-      font-size: {{ block.settings.title_font_size_mobile }}px;
-    }
+       .ai-top-product-description-{{ ai_gen_id }} {
+         font-size: {{ block.settings.description_font_size_mobile }}px;
+       }
 
-    .ai-top-product-description-{{ ai_gen_id }} {
-      font-size: {{ block.settings.description_font_size_mobile }}px;
-    }
+       .ai-top-product-price-{{ ai_gen_id }} {
+         font-size: {{ block.settings.price_font_size_mobile }}px;
+       }
 
-    .ai-top-product-price-{{ ai_gen_id }} {
-      font-size: {{ block.settings.price_font_size_mobile }}px;
-    }
-
-    .ai-top-product-button-{{ ai_gen_id }} {
-      font-size: {{ block.settings.button_font_size_mobile }}px;
-      padding: {{ block.settings.button_padding_vertical_mobile }}px {{ block.settings.button_padding_horizontal_mobile }}px;
-    }
-  }
+       .ai-top-product-button-{{ ai_gen_id }} {
+         font-size: {{ block.settings.button_font_size_mobile }}px;
+         padding: {{ block.settings.button_padding_vertical_mobile }}px {{ block.settings.button_padding_horizontal_mobile }}px;
+       }
+     }
 {% endstyle %}
 
 <div class="ai-top-product-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
@@ -268,14 +290,14 @@
 
     <div class="ai-top-product-grid-{{ ai_gen_id }}">
       <div class="ai-top-product-image-wrapper-{{ ai_gen_id }}">
-        {% if block.settings.product_image %}
+        {% if selected_product != blank and selected_product.featured_image %}
           <img
-            src="{{ block.settings.product_image | image_url: width: 1000 }}"
-            alt="{{ block.settings.product_image.alt | escape }}"
+            src="{{ selected_product.featured_image | image_url: width: 1000 }}"
+            alt="{{ selected_product.featured_image.alt | escape }}"
             class="ai-top-product-image-{{ ai_gen_id }}"
             loading="lazy"
-            width="{{ block.settings.product_image.width }}"
-            height="{{ block.settings.product_image.height }}"
+            width="{{ selected_product.featured_image.width }}"
+            height="{{ selected_product.featured_image.height }}"
           >
         {% else %}
           <div class="ai-top-product-image-placeholder-{{ ai_gen_id }}">
@@ -283,7 +305,7 @@
           </div>
         {% endif %}
 
-        {% if block.settings.show_sale_badge and block.settings.sale_badge_text != blank %}
+        {% if block.settings.show_sale_badge and block.settings.sale_badge_text != blank and top_product_has_discount %}
           <div class="ai-top-product-sale-badge-{{ ai_gen_id }}">
             {{ block.settings.sale_badge_text }}
           </div>
@@ -291,12 +313,14 @@
       </div>
 
       <div class="ai-top-product-content-{{ ai_gen_id }}">
-        {% if block.settings.product_title != blank %}
-          <h3 class="ai-top-product-title-{{ ai_gen_id }}">{{ block.settings.product_title }}</h3>
+        {% if selected_product != blank %}
+          <h3 class="ai-top-product-title-{{ ai_gen_id }}">{{ selected_product.title }}</h3>
         {% endif %}
 
-        {% if block.settings.show_meta and block.settings.product_meta != blank %}
-          <div class="ai-top-product-meta-{{ ai_gen_id }}">{{ block.settings.product_meta }}</div>
+        {% if block.settings.show_meta and selected_variant != blank %}
+          <div class="ai-top-product-meta-{{ ai_gen_id }}">
+            {{ selected_variant.title | escape }}
+          </div>
         {% endif %}
 
         {% if block.settings.product_description != blank %}
@@ -315,18 +339,30 @@
         {% endif %}
 
         <div class="ai-top-product-price-wrapper-{{ ai_gen_id }}">
-          {% if block.settings.product_price != blank %}
-            <p class="ai-top-product-price-{{ ai_gen_id }}">{{ block.settings.product_price }}</p>
-          {% endif %}
+          {% if selected_variant != blank %}
+            <p class="ai-top-product-price-{{ ai_gen_id }}">
+              {{ selected_variant.price | money }}
+            </p>
 
-          {% if block.settings.show_compare_price and block.settings.compare_price != blank %}
-            <p class="ai-top-product-compare-price-{{ ai_gen_id }}">{{ block.settings.compare_price }}</p>
+            {% if block.settings.show_compare_price and top_product_has_discount %}
+              <p class="ai-top-product-compare-price-{{ ai_gen_id }}">
+                {{ selected_variant.compare_at_price | money }}
+              </p>
+
+              <p class="ai-top-product-discount-text-{{ ai_gen_id }}">{{ top_product_discount_percent }}% OFF</p>
+            {% endif %}
           {% endif %}
         </div>
 
-        <a href="{{ block.settings.button_link }}" class="ai-top-product-button-{{ ai_gen_id }}">
+        <a href="{{ top_product_button_url }}" class="ai-top-product-button-{{ ai_gen_id }}">
           {% if block.settings.show_cart_icon %}
-            <svg class="ai-top-product-cart-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg
+              class="ai-top-product-cart-icon-{{ ai_gen_id }}"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           {% endif %}
@@ -451,52 +487,32 @@
       "content": "Product content"
     },
     {
-      "type": "image_picker",
-      "id": "product_image",
-      "label": "Product image"
+      "type": "product",
+      "id": "product",
+      "label": "Selected product"
     },
-    {
-      "type": "text",
-      "id": "product_title",
-      "label": "Product title",
-      "default": "Premium Lawn Collection"
-    },
+
     {
       "type": "checkbox",
       "id": "show_meta",
       "label": "Show meta text",
       "default": true
     },
-    {
-      "type": "text",
-      "id": "product_meta",
-      "label": "Meta text",
-      "default": "Unstitched | Lawn"
-    },
+
     {
       "type": "richtext",
       "id": "product_description",
       "label": "Description",
       "default": "<p>Experience luxury with our premium lawn collection. Crafted with the finest materials for ultimate comfort and style.</p>"
     },
-    {
-      "type": "text",
-      "id": "product_price",
-      "label": "Price",
-      "default": "Rs. 4,500"
-    },
+
     {
       "type": "checkbox",
       "id": "show_compare_price",
       "label": "Show compare price",
       "default": true
     },
-    {
-      "type": "text",
-      "id": "compare_price",
-      "label": "Compare at price",
-      "default": "Rs. 6,000"
-    },
+
     {
       "type": "header",
       "content": "Sold pieces bar"
@@ -1186,6 +1202,83 @@
       "max": 900,
       "step": 100,
       "default": 400
+    },
+    { "type": "header", "content": "Discount text style" },
+    { "type": "color", "id": "discount_text_color", "label": "Discount text color", "default": "#10B981" },
+    {
+      "type": "range",
+      "id": "discount_text_font_size_desktop",
+      "label": "Discount text font size (desktop)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "discount_text_font_size_mobile",
+      "label": "Discount text font size (mobile)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "discount_text_font_weight",
+      "label": "Discount text font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "discount_text_letter_spacing",
+      "label": "Discount text letter spacing",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.4
+    },
+    { "type": "checkbox", "id": "discount_text_uppercase", "label": "Uppercase discount text", "default": true },
+    {
+      "type": "range",
+      "id": "discount_text_padding_vertical",
+      "label": "Discount text padding vertical",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "discount_text_padding_horizontal",
+      "label": "Discount text padding horizontal",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "discount_text_border_radius",
+      "label": "Discount text border radius",
+      "min": 0,
+      "max": 99,
+      "step": 1,
+      "unit": "px",
+      "default": 99
+    },
+    {
+      "type": "color",
+      "id": "discount_text_background",
+      "label": "Discount text background",
+      "default": "rgba(16, 185, 129, 0.08)"
     },
     {
       "type": "header",

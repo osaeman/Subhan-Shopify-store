@@ -5,6 +5,7 @@
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
+/* Code has been pushed Successfully */
   .ai-featured-collection-{{ ai_gen_id }} {
     display: block;
     width: 100%;
@@ -319,15 +320,29 @@
                 </div>
               {% endif %}
 
-              {% if block.settings.show_sale_badge and product.compare_at_price > product.price %}
-                <div class="ai-featured-collection__sale-badge-{{ ai_gen_id }}">
-                  {{ block.settings.sale_badge_text }}
-                </div>
+              {% assign current_variant = product.selected_or_first_available_variant %}
+              {% assign has_discount = false %}
+              {% assign discount_percent = 0 %}
+
+              {% if current_variant.compare_at_price > current_variant.price %}
+                {% assign has_discount = true %}
+                {% assign discount_amount = current_variant.compare_at_price | minus: current_variant.price %}
+                {% assign discount_raw = discount_amount | times: 100 | divided_by: current_variant.compare_at_price %}
+                {% assign discount_percent = discount_raw | round %}
+              {% endif %}
+
+              {% if block.settings.show_sale_badge and has_discount %}
+                <div class="ai-featured-collection__sale-badge-{{ ai_gen_id }}">{{ discount_percent }}% OFF</div>
               {% endif %}
 
               {% if block.settings.show_arrow_button %}
                 <div class="ai-featured-collection__arrow-button-{{ ai_gen_id }}">
-                  <svg class="ai-featured-collection__arrow-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    class="ai-featured-collection__arrow-icon-{{ ai_gen_id }}"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
@@ -339,11 +354,7 @@
 
               {% if block.settings.show_product_tag %}
                 <div class="ai-featured-collection__tag-{{ ai_gen_id }}">
-                  {% if custom_tag != blank %}
-                    {{ custom_tag }}
-                  {% elsif product.tags.size > 0 %}
-                    {{ product.tags | first }}
-                  {% endif %}
+                  {{ product.selected_or_first_available_variant.title | escape }}
                 </div>
               {% endif %}
 
@@ -353,18 +364,28 @@
                     {% assign rating = block.settings.default_rating %}
                     {% for i in (1..5) %}
                       {% if i <= rating %}
-                        <svg class="ai-featured-collection__star-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg
+                          class="ai-featured-collection__star-{{ ai_gen_id }}"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
                         </svg>
                       {% else %}
-                        <svg class="ai-featured-collection__star-{{ ai_gen_id }} ai-featured-collection__star-empty-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg
+                          class="ai-featured-collection__star-{{ ai_gen_id }} ai-featured-collection__star-empty-{{ ai_gen_id }}"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
                         </svg>
                       {% endif %}
                     {% endfor %}
                   </div>
                   {% if block.settings.show_rating_count %}
-                    <span class="ai-featured-collection__rating-count-{{ ai_gen_id }}">({{ block.settings.rating_count_text }})</span>
+                    <span class="ai-featured-collection__rating-count-{{ ai_gen_id }}"
+                      >({{ block.settings.rating_count_text }})</span
+                    >
                   {% endif %}
                 </div>
               {% endif %}
@@ -392,7 +413,10 @@
         </div>
       {% endif %}
     {% else %}
-      <div class="ai-featured-collection__empty-state-{{ ai_gen_id }}" style="text-align: center; padding: 60px 20px; color: #999;">
+      <div
+        class="ai-featured-collection__empty-state-{{ ai_gen_id }}"
+        style="text-align: center; padding: 60px 20px; color: #999;"
+      >
         <p style="font-size: 16px; margin: 0;">Select a collection to display products</p>
       </div>
     {% endif %}
@@ -414,7 +438,7 @@
       setupCardInteractions() {
         this.cards.forEach((card) => {
           const arrowButton = card.querySelector('.ai-featured-collection__arrow-button-{{ ai_gen_id }}');
-          
+
           if (arrowButton) {
             arrowButton.addEventListener('click', (e) => {
               e.preventDefault();
@@ -963,12 +987,6 @@
       "default": true
     },
     {
-      "type": "text",
-      "id": "sale_badge_text",
-      "label": "Sale badge text",
-      "default": "Sale"
-    },
-    {
       "type": "color",
       "id": "sale_badge_background",
       "label": "Badge background",
@@ -1257,70 +1275,7 @@
       "label": "Tag bottom margin",
       "default": 10
     },
-    {
-      "type": "header",
-      "content": "Custom tags for products"
-    },
-    {
-      "type": "text",
-      "id": "product_1_custom_tag",
-      "label": "Product 1 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_2_custom_tag",
-      "label": "Product 2 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_3_custom_tag",
-      "label": "Product 3 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_4_custom_tag",
-      "label": "Product 4 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_5_custom_tag",
-      "label": "Product 5 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_6_custom_tag",
-      "label": "Product 6 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_7_custom_tag",
-      "label": "Product 7 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_8_custom_tag",
-      "label": "Product 8 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_9_custom_tag",
-      "label": "Product 9 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_10_custom_tag",
-      "label": "Product 10 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_11_custom_tag",
-      "label": "Product 11 custom tag"
-    },
-    {
-      "type": "text",
-      "id": "product_12_custom_tag",
-      "label": "Product 12 custom tag"
-    },
+
     {
       "type": "header",
       "content": "Product rating"

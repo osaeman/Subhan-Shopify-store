@@ -113,12 +113,13 @@
       "inventory_in_stock": "In stock",
       "inventory_in_stock_show_count": "{{ quantity }} in stock",
       "inventory_low_stock": "Low stock",
-      "inventory_low_stock_show_count": "Low stock: {{ quantity }} left",
+      "inventory_low_stock_show_count": "Low stock: {{ quanttity }} left",
       "inventory_out_of_stock": "Out of stock",
       "inventory_out_of_stock_continue_selling": "In stock",
       "sku": "SKU",
       "on_sale": "Sale",
       "product_variants": "Product variants",
+      "quick_add": "Quick add",
       "media": {
         "gallery_viewer": "Gallery Viewer",
         "load_image": "Load image {{ index }} in gallery view",
@@ -511,6 +512,7 @@
       "expired": "Expired"
     }
   },
+
   "recipient": {
     "form": {
       "checkbox": "I want to send this as a gift",

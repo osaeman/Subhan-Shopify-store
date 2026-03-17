@@ -2,19 +2,104 @@
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  @media screen and (max-width: 749px) {
-    .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+        #CollectionBanner-{{ section.id }} {
+          margin-top: {{ section.settings.banner_margin_top_desktop }}px;
+          margin-bottom: {{ section.settings.banner_margin_bottom_desktop }}px;
+        }
+
+        #CollectionBanner-{{ section.id }} .collection-hero__inner {
+          padding-top: {{ section.settings.banner_padding_top_desktop }}px;
+          padding-bottom: {{ section.settings.banner_padding_bottom_desktop }}px;
+        }
+
+        #CollectionBanner-{{ section.id }} .collection-hero__title {
+          font-size: {{ section.settings.banner_title_font_size_desktop }}px;
+          font-weight: {{ section.settings.banner_title_font_weight_desktop }};
+          line-height: {{ section.settings.banner_title_line_height_desktop }};
+          color: {{ section.settings.banner_title_color_desktop }};
+        }
+
+        #CollectionBanner-{{ section.id }} .collection-hero__description {
+          font-size: {{ section.settings.banner_description_font_size_desktop }}px;
+          font-weight: {{ section.settings.banner_description_font_weight_desktop }};
+          line-height: {{ section.settings.banner_description_line_height_desktop }};
+          color: {{ section.settings.banner_description_color_desktop }};
+        }
+        #CollectionBanner-{{ section.id }} .collection-hero__text-wrapper {
+        text-align: {{ section.settings.banner_text_align_desktop }};
+      }
+
+        @media screen and (max-width: 989px) {
+          #CollectionBanner-{{ section.id }} {
+            margin-top: {{ section.settings.banner_margin_top_tablet }}px;
+            margin-bottom: {{ section.settings.banner_margin_bottom_tablet }}px;
+          }
+
+          #CollectionBanner-{{ section.id }} .collection-hero__inner {
+            padding-top: {{ section.settings.banner_padding_top_tablet }}px;
+            padding-bottom: {{ section.settings.banner_padding_bottom_tablet }}px;
+          }
+
+          #CollectionBanner-{{ section.id }} .collection-hero__title {
+            font-size: {{ section.settings.banner_title_font_size_tablet }}px;
+            font-weight: {{ section.settings.banner_title_font_weight_tablet }};
+            line-height: {{ section.settings.banner_title_line_height_tablet }};
+            color: {{ section.settings.banner_title_color_tablet }};
+          }
+
+          #CollectionBanner-{{ section.id }} .collection-hero__description {
+            font-size: {{ section.settings.banner_description_font_size_tablet }}px;
+            font-weight: {{ section.settings.banner_description_font_weight_tablet }};
+            line-height: {{ section.settings.banner_description_line_height_tablet }};
+            color: {{ section.settings.banner_description_color_tablet }};
+          }
+          #CollectionBanner-{{ section.id }} .collection-hero__text-wrapper {
+      text-align: {{ section.settings.banner_text_align_tablet }};
     }
+        }
+
+        @media screen and (max-width: 749px) {
+          #CollectionBanner-{{ section.id }} {
+            margin-top: {{ section.settings.banner_margin_top_mobile }}px;
+            margin-bottom: {{ section.settings.banner_margin_bottom_mobile }}px;
+          }
+
+          #CollectionBanner-{{ section.id }} .collection-hero__inner {
+            padding-top: {{ section.settings.banner_padding_top_mobile }}px;
+            padding-bottom: {{ section.settings.banner_padding_bottom_mobile }}px;
+          }
+
+          #CollectionBanner-{{ section.id }} .collection-hero__title {
+            font-size: {{ section.settings.banner_title_font_size_mobile }}px;
+            font-weight: {{ section.settings.banner_title_font_weight_mobile }};
+            line-height: {{ section.settings.banner_title_line_height_mobile }};
+            color: {{ section.settings.banner_title_color_mobile }};
+          }
+
+          #CollectionBanner-{{ section.id }} .collection-hero__description {
+            font-size: {{ section.settings.banner_description_font_size_mobile }}px;
+            font-weight: {{ section.settings.banner_description_font_weight_mobile }};
+            line-height: {{ section.settings.banner_description_line_height_mobile }};
+            color: {{ section.settings.banner_description_color_mobile }};
+          }
+          #CollectionBanner-{{ section.id }} .collection-hero__text-wrapper {
+    text-align: {{ section.settings.banner_text_align_mobile }};
   }
+          .collection-hero--with-image .collection-hero__inner {
+            padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+          }
+        }
 {%- endstyle -%}
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
+<div
+  id="CollectionBanner-{{ section.id }}"
+  class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient"
+>
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
-        {{- collection.title | escape -}}
+        OUR CLOTHING COLLECTION
       </h1>
 
       {%- if section.settings.show_collection_description -%}
@@ -71,6 +156,403 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Banner title - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "banner_title_font_size_desktop",
+      "label": "Title font size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "banner_title_font_weight_desktop",
+      "label": "Title font weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "banner_title_line_height_desktop",
+      "label": "Title line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.1
+    },
+    {
+      "type": "color",
+      "id": "banner_title_color_desktop",
+      "label": "Title color",
+      "default": "#2f2a3b"
+    },
+    {
+      "type": "header",
+      "content": "Banner title - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "banner_title_font_size_tablet",
+      "label": "Title font size",
+      "min": 18,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "banner_title_font_weight_tablet",
+      "label": "Title font weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "banner_title_line_height_tablet",
+      "label": "Title line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.1
+    },
+    {
+      "type": "color",
+      "id": "banner_title_color_tablet",
+      "label": "Title color",
+      "default": "#2f2a3b"
+    },
+    {
+      "type": "header",
+      "content": "Banner title - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "banner_title_font_size_mobile",
+      "label": "Title font size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "banner_title_font_weight_mobile",
+      "label": "Title font weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "banner_title_line_height_mobile",
+      "label": "Title line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.1
+    },
+    {
+      "type": "color",
+      "id": "banner_title_color_mobile",
+      "label": "Title color",
+      "default": "#2f2a3b"
+    },
+    {
+      "type": "header",
+      "content": "Banner description - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "banner_description_font_size_desktop",
+      "label": "Description font size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "banner_description_font_weight_desktop",
+      "label": "Description font weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "banner_description_line_height_desktop",
+      "label": "Description line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "type": "color",
+      "id": "banner_description_color_desktop",
+      "label": "Description color",
+      "default": "#2f2a3b"
+    },
+    {
+      "type": "header",
+      "content": "Banner description - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "banner_description_font_size_tablet",
+      "label": "Description font size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "banner_description_font_weight_tablet",
+      "label": "Description font weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "banner_description_line_height_tablet",
+      "label": "Description line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "type": "color",
+      "id": "banner_description_color_tablet",
+      "label": "Description color",
+      "default": "#2f2a3b"
+    },
+    {
+      "type": "header",
+      "content": "Banner description - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "banner_description_font_size_mobile",
+      "label": "Description font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "banner_description_font_weight_mobile",
+      "label": "Description font weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "banner_description_line_height_mobile",
+      "label": "Description line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "type": "color",
+      "id": "banner_description_color_mobile",
+      "label": "Description color",
+      "default": "#2f2a3b"
+    },
+    {
+      "type": "header",
+      "content": "Banner spacing - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "banner_padding_top_desktop",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "banner_padding_bottom_desktop",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "banner_margin_top_desktop",
+      "label": "Margin top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "banner_margin_bottom_desktop",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Banner spacing - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "banner_padding_top_tablet",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "banner_padding_bottom_tablet",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "banner_margin_top_tablet",
+      "label": "Margin top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "banner_margin_bottom_tablet",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Banner spacing - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "banner_padding_top_mobile",
+      "label": "Padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "banner_padding_bottom_mobile",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "banner_margin_top_mobile",
+      "label": "Margin top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "banner_margin_bottom_mobile",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Banner text alignment"
+    },
+    {
+      "type": "select",
+      "id": "banner_text_align_desktop",
+      "label": "Text align - Desktop",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "banner_text_align_tablet",
+      "label": "Text align - Tablet",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "banner_text_align_mobile",
+      "label": "Text align - Mobile",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
     }
   ]
 }
