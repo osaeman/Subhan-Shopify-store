@@ -2,93 +2,102 @@
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-        #CollectionBanner-{{ section.id }} {
-          margin-top: {{ section.settings.banner_margin_top_desktop }}px;
-          margin-bottom: {{ section.settings.banner_margin_bottom_desktop }}px;
-        }
+  #CollectionBanner-{{ section.id }} {
+    margin-top: {{ section.settings.banner_margin_top_desktop }}px;
+    margin-bottom: {{ section.settings.banner_margin_bottom_desktop }}px;
+  }
 
-        #CollectionBanner-{{ section.id }} .collection-hero__inner {
-          padding-top: {{ section.settings.banner_padding_top_desktop }}px;
-          padding-bottom: {{ section.settings.banner_padding_bottom_desktop }}px;
-        }
+  #CollectionBanner-{{ section.id }} .collection-hero__inner {
+    padding-top: {{ section.settings.banner_padding_top_desktop }}px;
+    padding-bottom: {{ section.settings.banner_padding_bottom_desktop }}px;
+  }
 
-        #CollectionBanner-{{ section.id }} .collection-hero__title {
-          font-size: {{ section.settings.banner_title_font_size_desktop }}px;
-          font-weight: {{ section.settings.banner_title_font_weight_desktop }};
-          line-height: {{ section.settings.banner_title_line_height_desktop }};
-          color: {{ section.settings.banner_title_color_desktop }};
-        }
+  #CollectionBanner-{{ section.id }} .collection-hero__title {
+    margin: 0 0 {{ section.settings.banner_title_margin_bottom_desktop }}px;
+    padding: 0;
+    font-size: {{ section.settings.banner_title_font_size_desktop }}px;
+    font-weight: {{ section.settings.banner_title_font_weight_desktop }};
+    line-height: {{ section.settings.banner_title_line_height_desktop }};
+    color: {{ section.settings.banner_title_color_desktop }};
+    text-transform: {{ section.settings.banner_title_text_transform }};
+  }
 
-        #CollectionBanner-{{ section.id }} .collection-hero__description {
-          font-size: {{ section.settings.banner_description_font_size_desktop }}px;
-          font-weight: {{ section.settings.banner_description_font_weight_desktop }};
-          line-height: {{ section.settings.banner_description_line_height_desktop }};
-          color: {{ section.settings.banner_description_color_desktop }};
-        }
-        #CollectionBanner-{{ section.id }} .collection-hero__text-wrapper {
-        text-align: {{ section.settings.banner_text_align_desktop }};
-      }
+  #CollectionBanner-{{ section.id }} .collection-hero__description {
+    font-size: {{ section.settings.banner_description_font_size_desktop }}px;
+    font-weight: {{ section.settings.banner_description_font_weight_desktop }};
+    line-height: {{ section.settings.banner_description_line_height_desktop }};
+    color: {{ section.settings.banner_description_color_desktop }};
+  }
 
-        @media screen and (max-width: 989px) {
-          #CollectionBanner-{{ section.id }} {
-            margin-top: {{ section.settings.banner_margin_top_tablet }}px;
-            margin-bottom: {{ section.settings.banner_margin_bottom_tablet }}px;
-          }
+  #CollectionBanner-{{ section.id }} .collection-hero__text-wrapper {
+    text-align: {{ section.settings.banner_text_align_desktop }};
+  }
 
-          #CollectionBanner-{{ section.id }} .collection-hero__inner {
-            padding-top: {{ section.settings.banner_padding_top_tablet }}px;
-            padding-bottom: {{ section.settings.banner_padding_bottom_tablet }}px;
-          }
+  @media screen and (max-width: 989px) {
+    #CollectionBanner-{{ section.id }} {
+      margin-top: {{ section.settings.banner_margin_top_tablet }}px;
+      margin-bottom: {{ section.settings.banner_margin_bottom_tablet }}px;
+    }
 
-          #CollectionBanner-{{ section.id }} .collection-hero__title {
-            font-size: {{ section.settings.banner_title_font_size_tablet }}px;
-            font-weight: {{ section.settings.banner_title_font_weight_tablet }};
-            line-height: {{ section.settings.banner_title_line_height_tablet }};
-            color: {{ section.settings.banner_title_color_tablet }};
-          }
+    #CollectionBanner-{{ section.id }} .collection-hero__inner {
+      padding-top: {{ section.settings.banner_padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.banner_padding_bottom_tablet }}px;
+    }
 
-          #CollectionBanner-{{ section.id }} .collection-hero__description {
-            font-size: {{ section.settings.banner_description_font_size_tablet }}px;
-            font-weight: {{ section.settings.banner_description_font_weight_tablet }};
-            line-height: {{ section.settings.banner_description_line_height_tablet }};
-            color: {{ section.settings.banner_description_color_tablet }};
-          }
-          #CollectionBanner-{{ section.id }} .collection-hero__text-wrapper {
+    #CollectionBanner-{{ section.id }} .collection-hero__title {
+      margin: 0 0 {{ section.settings.banner_title_margin_bottom_tablet }}px;
+      padding: 0;
+      font-size: {{ section.settings.banner_title_font_size_tablet }}px;
+      font-weight: {{ section.settings.banner_title_font_weight_tablet }};
+      line-height: {{ section.settings.banner_title_line_height_tablet }};
+      text-transform: {{ section.settings.banner_title_text_transform }};
+    }
+
+    #CollectionBanner-{{ section.id }} .collection-hero__description {
+      font-size: {{ section.settings.banner_description_font_size_tablet }}px;
+      font-weight: {{ section.settings.banner_description_font_weight_tablet }};
+      line-height: {{ section.settings.banner_description_line_height_tablet }};
+    }
+
+    #CollectionBanner-{{ section.id }} .collection-hero__text-wrapper {
       text-align: {{ section.settings.banner_text_align_tablet }};
     }
-        }
-
-        @media screen and (max-width: 749px) {
-          #CollectionBanner-{{ section.id }} {
-            margin-top: {{ section.settings.banner_margin_top_mobile }}px;
-            margin-bottom: {{ section.settings.banner_margin_bottom_mobile }}px;
-          }
-
-          #CollectionBanner-{{ section.id }} .collection-hero__inner {
-            padding-top: {{ section.settings.banner_padding_top_mobile }}px;
-            padding-bottom: {{ section.settings.banner_padding_bottom_mobile }}px;
-          }
-
-          #CollectionBanner-{{ section.id }} .collection-hero__title {
-            font-size: {{ section.settings.banner_title_font_size_mobile }}px;
-            font-weight: {{ section.settings.banner_title_font_weight_mobile }};
-            line-height: {{ section.settings.banner_title_line_height_mobile }};
-            color: {{ section.settings.banner_title_color_mobile }};
-          }
-
-          #CollectionBanner-{{ section.id }} .collection-hero__description {
-            font-size: {{ section.settings.banner_description_font_size_mobile }}px;
-            font-weight: {{ section.settings.banner_description_font_weight_mobile }};
-            line-height: {{ section.settings.banner_description_line_height_mobile }};
-            color: {{ section.settings.banner_description_color_mobile }};
-          }
-          #CollectionBanner-{{ section.id }} .collection-hero__text-wrapper {
-    text-align: {{ section.settings.banner_text_align_mobile }};
   }
-          .collection-hero--with-image .collection-hero__inner {
-            padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
-          }
-        }
+
+  @media screen and (max-width: 749px) {
+    #CollectionBanner-{{ section.id }} {
+      margin-top: {{ section.settings.banner_margin_top_mobile }}px;
+      margin-bottom: {{ section.settings.banner_margin_bottom_mobile }}px;
+    }
+
+    #CollectionBanner-{{ section.id }} .collection-hero__inner {
+      padding-top: {{ section.settings.banner_padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.banner_padding_bottom_mobile }}px;
+    }
+
+    #CollectionBanner-{{ section.id }} .collection-hero__title {
+      margin: 0 0 {{ section.settings.banner_title_margin_bottom_mobile }}px;
+      padding: 0;
+      font-size: {{ section.settings.banner_title_font_size_mobile }}px;
+      font-weight: {{ section.settings.banner_title_font_weight_mobile }};
+      line-height: {{ section.settings.banner_title_line_height_mobile }};
+      text-transform: {{ section.settings.banner_title_text_transform }};
+    }
+
+    #CollectionBanner-{{ section.id }} .collection-hero__description {
+      font-size: {{ section.settings.banner_description_font_size_mobile }}px;
+      font-weight: {{ section.settings.banner_description_font_weight_mobile }};
+      line-height: {{ section.settings.banner_description_line_height_mobile }};
+    }
+
+    #CollectionBanner-{{ section.id }} .collection-hero__text-wrapper {
+      text-align: {{ section.settings.banner_text_align_mobile }};
+    }
+
+    .collection-hero--with-image .collection-hero__inner {
+      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+    }
+  }
 {%- endstyle -%}
 
 <div
@@ -99,7 +108,7 @@
     <div class="collection-hero__text-wrapper">
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
-        OUR CLOTHING COLLECTION
+        Our Clothing Collection
       </h1>
 
       {%- if section.settings.show_collection_description -%}
@@ -196,6 +205,27 @@
       "default": "#2f2a3b"
     },
     {
+      "type": "select",
+      "id": "banner_title_text_transform",
+      "label": "Title text transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "banner_title_margin_bottom_desktop",
+      "label": "Title margin bottom",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
       "type": "header",
       "content": "Banner title - Tablet"
     },
@@ -228,10 +258,14 @@
       "default": 1.1
     },
     {
-      "type": "color",
-      "id": "banner_title_color_tablet",
-      "label": "Title color",
-      "default": "#2f2a3b"
+      "type": "range",
+      "id": "banner_title_margin_bottom_tablet",
+      "label": "Title margin bottom",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 14
     },
     {
       "type": "header",
@@ -266,10 +300,14 @@
       "default": 1.1
     },
     {
-      "type": "color",
-      "id": "banner_title_color_mobile",
-      "label": "Title color",
-      "default": "#2f2a3b"
+      "type": "range",
+      "id": "banner_title_margin_bottom_mobile",
+      "label": "Title margin bottom",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
     },
     {
       "type": "header",
@@ -342,12 +380,6 @@
       "default": 1.5
     },
     {
-      "type": "color",
-      "id": "banner_description_color_tablet",
-      "label": "Description color",
-      "default": "#2f2a3b"
-    },
-    {
       "type": "header",
       "content": "Banner description - Mobile"
     },
@@ -378,12 +410,6 @@
       "max": 2,
       "step": 0.1,
       "default": 1.5
-    },
-    {
-      "type": "color",
-      "id": "banner_description_color_mobile",
-      "label": "Description color",
-      "default": "#2f2a3b"
     },
     {
       "type": "header",
