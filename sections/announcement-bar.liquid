@@ -128,12 +128,78 @@
       </slideshow-component>
       {%- if request.design_mode -%}
         <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
-        <style>
-          /* theme editor power preview fix */
-          .announcement-bar-slider .slider__slide[aria-hidden='true'] {
-            visibility: hidden;
+        {% style %}
+          #shopify-section-{{ section.id }} .utility-bar {
+            --announcement-text-size-mobile: {{ section.settings.text_size_mobile }}px;
+            --announcement-text-size-desktop: {{ section.settings.text_size_desktop }}px;
+            --announcement-text-color: {{ section.settings.text_color }};
+            --announcement-line-height-mobile: {{ section.settings.line_height_mobile | divided_by: 100.0 }};
+            --announcement-line-height-desktop: {{ section.settings.line_height_desktop | divided_by: 100.0 }};
+            --announcement-font-weight: {{ section.settings.font_weight }};
+            --announcement-bar-height-mobile: {{ section.settings.bar_height_mobile }}px;
+            --announcement-bar-height-desktop: {{ section.settings.bar_height_desktop }}px;
+
+            height: var(--announcement-bar-height-mobile);
           }
-        </style>
+
+          @media screen and (min-width: 750px) {
+            #shopify-section-{{ section.id }} .utility-bar {
+             height: var(--announcement-bar-height-desktop);
+            }
+          }
+
+          #shopify-section-{{ section.id }} .utility-bar__grid {
+            height: inherit;
+            align-items: center;
+          }
+
+          #shopify-section-{{ section.id }} .announcement-bar,
+          #shopify-section-{{ section.id }} .announcement-bar__announcement,
+          #shopify-section-{{ section.id }} .slideshow__slide {
+            height: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          #shopify-section-{{ section.id }} .announcement-bar__link {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: inherit;
+          }
+
+          #shopify-section-{{ section.id }} .announcement-bar__message {
+            margin: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            text-align: center;
+            color: var(--announcement-text-color);
+            font-size: var(--announcement-text-size-mobile);
+            line-height: var(--announcement-line-height-mobile);
+            font-weight: var(--announcement-font-weight);
+          }
+
+          @media screen and (min-width: 750px) {
+            #shopify-section-{{ section.id }} .announcement-bar__message {
+              font-size: var(--announcement-text-size-desktop);
+              line-height: var(--announcement-line-height-desktop);
+            }
+          }
+
+          #shopify-section-{{ section.id }} .announcement-bar__message span {
+            text-align: center;
+          }
+
+          #shopify-section-{{ section.id }} .announcement-bar-slider {
+            align-items: center;
+          }
+        {% endstyle %}
       {%- endif -%}
     {%- endif -%}
     <div class="localization-wrapper">
@@ -186,13 +252,97 @@
       "unit": "s",
       "label": "t:sections.announcement-bar.settings.change_slides_speed.label",
       "default": 5
-    },    
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-4"
-    },  
+    },
+    {
+      "type": "header",
+      "content": "Announcement bar typography"
+    },
+    {
+      "type": "range",
+      "id": "text_size_mobile",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size (mobile)",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "text_size_desktop",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size (desktop)",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "line_height_mobile",
+      "min": 80,
+      "max": 200,
+      "step": 5,
+      "label": "Line height (mobile) (%)",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "line_height_desktop",
+      "min": 80,
+      "max": 200,
+      "step": 5,
+      "label": "Line height (desktop) (%)",
+      "default": 140
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "default": "500",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Announcement bar height"
+    },
+    {
+      "type": "range",
+      "id": "bar_height_mobile",
+      "min": 10,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Bar height (mobile)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "bar_height_desktop",
+      "min": 30,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "label": "Bar height (desktop)",
+      "default": 48
+    },
     {
       "type": "checkbox",
       "id": "show_line_separator",
@@ -205,8 +355,8 @@
     },
     {
       "type": "paragraph",
-         "content": "t:sections.announcement-bar.settings.paragraph.content"
-    },             
+      "content": "t:sections.announcement-bar.settings.paragraph.content"
+    },
     {
       "type": "checkbox",
       "id": "show_social",

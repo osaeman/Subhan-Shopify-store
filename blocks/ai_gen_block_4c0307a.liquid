@@ -114,7 +114,7 @@
        font-weight: {{ block.settings.title_font_weight }};
        line-height: {{ block.settings.title_line_height }};
        color: {{ block.settings.title_color }};
-       margin: {{ block.settings.title_margin_top }}px 0 {{ block.settings.title_margin_bottom }}px 0;
+       margin: 0 0 {{ block.settings.title_margin_bottom }}px 0;
      }
 
      .ai-top-product-meta-{{ ai_gen_id }} {
@@ -123,14 +123,14 @@
        color: {{ block.settings.meta_color }};
        text-transform: uppercase;
        letter-spacing: 1px;
-       margin: {{ block.settings.meta_margin_top }}px 0 {{ block.settings.meta_margin_bottom }}px 0;
+       margin: 0 0 {{ block.settings.meta_margin_bottom }}px 0;
      }
 
      .ai-top-product-description-{{ ai_gen_id }} {
        font-size: {{ block.settings.description_font_size }}px;
        line-height: {{ block.settings.description_line_height }};
        color: {{ block.settings.description_color }};
-       margin: {{ block.settings.description_margin_top }}px 0 {{ block.settings.description_margin_bottom }}px 0;
+       margin: 0 0 {{ block.settings.description_margin_bottom }}px 0;
      }
 
      .ai-top-product-sold-bar-{{ ai_gen_id }} {
@@ -138,7 +138,7 @@
        border-radius: {{ block.settings.sold_bar_border_radius }}px;
        padding: {{ block.settings.sold_bar_padding_vertical }}px {{ block.settings.sold_bar_padding_horizontal }}px;
        border: {{ block.settings.sold_bar_border_width }}px solid {{ block.settings.sold_bar_border_color }};
-       margin: {{ block.settings.sold_bar_margin_top }}px 0 {{ block.settings.sold_bar_margin_bottom }}px 0;
+       margin: 0 0 {{ block.settings.sold_bar_margin_bottom }}px 0;
      }
 
      .ai-top-product-sold-text-{{ ai_gen_id }} {
@@ -157,7 +157,7 @@
        display: flex;
        align-items: center;
        gap: {{ block.settings.price_gap }}px;
-       margin: {{ block.settings.price_margin_top }}px 0 {{ block.settings.price_margin_bottom }}px 0;
+       margin: 0 0 {{ block.settings.price_margin_bottom }}px 0;
      }
 
      .ai-top-product-price-{{ ai_gen_id }} {
@@ -191,7 +191,7 @@
        cursor: pointer;
        transition: all 0.3s ease;
        width: {{ block.settings.button_width }};
-       margin: {{ block.settings.button_margin_top }}px 0 {{ block.settings.button_margin_bottom }}px 0;
+       margin: 0 0 {{ block.settings.button_margin_bottom }}px 0;
      }
 
      .ai-top-product-button-{{ ai_gen_id }}:hover {
@@ -263,14 +263,6 @@
          margin-bottom: {{ block.settings.heading_margin_bottom_mobile }}px;
        }
 
-       .ai-top-product-title-{{ ai_gen_id }} {
-         font-size: {{ block.settings.title_font_size_mobile }}px;
-       }
-
-       .ai-top-product-description-{{ ai_gen_id }} {
-         font-size: {{ block.settings.description_font_size_mobile }}px;
-       }
-
        .ai-top-product-price-{{ ai_gen_id }} {
          font-size: {{ block.settings.price_font_size_mobile }}px;
        }
@@ -278,6 +270,33 @@
        .ai-top-product-button-{{ ai_gen_id }} {
          font-size: {{ block.settings.button_font_size_mobile }}px;
          padding: {{ block.settings.button_padding_vertical_mobile }}px {{ block.settings.button_padding_horizontal_mobile }}px;
+       }
+       .ai-top-product-title-{{ ai_gen_id }} {
+         font-size: {{ block.settings.title_font_size_mobile }}px;
+         margin: 0 0 {{ block.settings.title_margin_bottom_mobile }}px 0;
+       }
+
+       .ai-top-product-meta-{{ ai_gen_id }} {
+         margin: 0 0 {{ block.settings.meta_margin_bottom_mobile }}px 0;
+       }
+
+       .ai-top-product-description-{{ ai_gen_id }} {
+         font-size: {{ block.settings.description_font_size_mobile }}px;
+         margin: 0 0 {{ block.settings.description_margin_bottom_mobile }}px 0;
+       }
+
+       .ai-top-product-sold-bar-{{ ai_gen_id }} {
+         margin: 0 0 {{ block.settings.sold_bar_margin_bottom_mobile }}px 0;
+       }
+
+       .ai-top-product-price-wrapper-{{ ai_gen_id }} {
+         margin: 0 0 {{ block.settings.price_margin_bottom_mobile }}px 0;
+       }
+
+       .ai-top-product-button-{{ ai_gen_id }} {
+         font-size: {{ block.settings.button_font_size_mobile }}px;
+         padding: {{ block.settings.button_padding_vertical_mobile }}px {{ block.settings.button_padding_horizontal_mobile }}px;
+         margin: 0 0 {{ block.settings.button_margin_bottom_mobile }}px 0;
        }
      }
 {% endstyle %}
@@ -987,13 +1006,13 @@
     },
     {
       "type": "range",
-      "id": "title_margin_top",
-      "label": "Margin top",
+      "id": "title_margin_bottom_mobile",
+      "label": "Title margin bottom (mobile)",
       "min": 0,
       "max": 60,
       "step": 4,
       "unit": "px",
-      "default": 0
+      "default": 12
     },
     {
       "type": "range",
@@ -1030,13 +1049,13 @@
     },
     {
       "type": "range",
-      "id": "meta_margin_top",
-      "label": "Margin top",
+      "id": "meta_margin_bottom_mobile",
+      "label": "Meta margin bottom (mobile)",
       "min": 0,
       "max": 60,
       "step": 4,
       "unit": "px",
-      "default": 0
+      "default": 12
     },
     {
       "type": "range",
@@ -1093,13 +1112,13 @@
     },
     {
       "type": "range",
-      "id": "description_margin_top",
-      "label": "Margin top",
+      "id": "description_margin_bottom_mobile",
+      "label": "Description margin bottom (mobile)",
       "min": 0,
       "max": 60,
       "step": 4,
       "unit": "px",
-      "default": 0
+      "default": 16
     },
     {
       "type": "range",
@@ -1166,13 +1185,13 @@
     },
     {
       "type": "range",
-      "id": "price_margin_top",
-      "label": "Margin top",
+      "id": "price_margin_bottom_mobile",
+      "label": "Price margin bottom (mobile)",
       "min": 0,
       "max": 60,
       "step": 4,
       "unit": "px",
-      "default": 0
+      "default": 16
     },
     {
       "type": "range",
@@ -1527,13 +1546,13 @@
     },
     {
       "type": "range",
-      "id": "sold_bar_margin_top",
-      "label": "Margin top",
+      "id": "sold_bar_margin_bottom_mobile",
+      "label": "Sold bar margin bottom (mobile)",
       "min": 0,
       "max": 60,
       "step": 4,
       "unit": "px",
-      "default": 0
+      "default": 16
     },
     {
       "type": "range",
@@ -1664,8 +1683,8 @@
     },
     {
       "type": "range",
-      "id": "button_margin_top",
-      "label": "Margin top",
+      "id": "button_margin_bottom_mobile",
+      "label": "Button margin bottom (mobile)",
       "min": 0,
       "max": 60,
       "step": 4,

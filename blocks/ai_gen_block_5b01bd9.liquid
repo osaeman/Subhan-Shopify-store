@@ -130,6 +130,13 @@
     color: {{ block.settings.stat_label_color }};
     margin: 0;
   }
+  .ai-about-heading-{{ ai_gen_id }} > * {
+   margin-top: 0;
+   margin-bottom: 0;
+  }
+  .ai-about-description-{{ ai_gen_id }} > * {
+     margin-top: 0;
+  }
 
   @media screen and (max-width: 989px) {
     .ai-about-section-{{ ai_gen_id }} {
@@ -294,7 +301,7 @@
               <div class="ai-about-subheading-{{ ai_gen_id }}">{{ block.settings.heading }}</div>
             {% endif %}
             {% if block.settings.subheading != blank %}
-              <h2 class="ai-about-heading-{{ ai_gen_id }}">{{ block.settings.subheading }}</h2>
+              <div class="ai-about-heading-{{ ai_gen_id }}">{{ block.settings.subheading }}</div>
             {% endif %}
           </div>
         {% endif %}

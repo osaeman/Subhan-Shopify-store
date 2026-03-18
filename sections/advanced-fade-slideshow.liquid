@@ -152,12 +152,7 @@
     --heading-lh-d: {{ section.settings.heading_line_height_desktop | divided_by: 100.0 }};
     --heading-lh-t: {{ section.settings.heading_line_height_tablet | divided_by: 100.0 }};
     --heading-lh-m: {{ section.settings.heading_line_height_mobile | divided_by: 100.0 }};
-    --heading-mt-d: {{ section.settings.heading_margin_top_desktop }}px;
-    --heading-mb-d: {{ section.settings.heading_margin_bottom_desktop }}px;
-    --heading-mt-t: {{ section.settings.heading_margin_top_tablet }}px;
-    --heading-mb-t: {{ section.settings.heading_margin_bottom_tablet }}px;
     --heading-mt-m: {{ section.settings.heading_margin_top_mobile }}px;
-    --heading-mb-m: {{ section.settings.heading_margin_bottom_mobile }}px;
     --desc-color: {{ section.settings.description_color }};
     --desc-weight: {{ section.settings.description_weight }};
     --desc-size-d: {{ section.settings.description_size_desktop }}px;
@@ -189,9 +184,6 @@
     --btn-pad-h-t: {{ section.settings.button_padding_horizontal_tablet }}px;
     --btn-pad-v-m: {{ section.settings.button_padding_vertical_mobile }}px;
     --btn-pad-h-m: {{ section.settings.button_padding_horizontal_mobile }}px;
-    --btn-mt-d: {{ section.settings.button_margin_top_desktop }}px;
-    --btn-mt-t: {{ section.settings.button_margin_top_tablet }}px;
-    --btn-mt-m: {{ section.settings.button_margin_top_mobile }}px;
     --overlay-color: {{ section.settings.overlay_color }};
     --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     --fade-duration: {{ section.settings.fade_duration }}ms;
@@ -288,7 +280,7 @@
   }
 
   #AdvancedFadeSlideshow-{{ section.id }} .advanced-fade-slideshow__heading {
-    margin: var(--heading-mt-m) 0 var(--heading-mb-m);
+    margin: 0;
     color: var(--heading-color);
     font-weight: var(--heading-weight);
     font-size: var(--heading-size-m);
@@ -297,7 +289,6 @@
   }
   @media screen and (min-width: 750px) {
     #AdvancedFadeSlideshow-{{ section.id }} .advanced-fade-slideshow__heading {
-      margin: var(--heading-mt-t) 0 var(--heading-mb-t);
       font-size: var(--heading-size-t);
       line-height: var(--heading-lh-t);
       text-align: {{ section.settings.text_align_tablet }};
@@ -305,7 +296,7 @@
   }
   @media screen and (min-width: 990px) {
     #AdvancedFadeSlideshow-{{ section.id }} .advanced-fade-slideshow__heading {
-      margin: var(--heading-mt-d) 0 var(--heading-mb-d);
+      margin: var(--heading-mt-d) 0 0 0;
       font-size: var(--heading-size-d);
       line-height: var(--heading-lh-d);
       text-align: {{ section.settings.text_align_desktop }};
@@ -341,7 +332,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-top: var(--btn-mt-m);
+    margin: 0;
     padding: var(--btn-pad-v-m) var(--btn-pad-h-m);
     color: var(--btn-color);
     background-color: var(--btn-bg);
@@ -355,14 +346,12 @@
   }
   @media screen and (min-width: 750px) {
     #AdvancedFadeSlideshow-{{ section.id }} .advanced-fade-slideshow__button {
-      margin-top: var(--btn-mt-t);
       padding: var(--btn-pad-v-t) var(--btn-pad-h-t);
       font-size: var(--btn-size-t);
     }
   }
   @media screen and (min-width: 990px) {
     #AdvancedFadeSlideshow-{{ section.id }} .advanced-fade-slideshow__button {
-      margin-top: var(--btn-mt-d);
       padding: var(--btn-pad-v-d) var(--btn-pad-h-d);
       font-size: var(--btn-size-d);
     }
@@ -815,56 +804,6 @@
       "label": "Heading margin top (desktop)",
       "default": 0
     },
-    {
-      "type": "range",
-      "id": "heading_margin_bottom_desktop",
-      "min": 0,
-      "max": 60,
-      "step": 2,
-      "unit": "px",
-      "label": "Heading margin bottom (desktop)",
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "heading_margin_top_tablet",
-      "min": 0,
-      "max": 48,
-      "step": 2,
-      "unit": "px",
-      "label": "Heading margin top (tablet)",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "heading_margin_bottom_tablet",
-      "min": 0,
-      "max": 48,
-      "step": 2,
-      "unit": "px",
-      "label": "Heading margin bottom (tablet)",
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "heading_margin_top_mobile",
-      "min": 0,
-      "max": 40,
-      "step": 2,
-      "unit": "px",
-      "label": "Heading margin top (mobile)",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "heading_margin_bottom_mobile",
-      "min": 0,
-      "max": 40,
-      "step": 2,
-      "unit": "px",
-      "label": "Heading margin bottom (mobile)",
-      "default": 8
-    },
     { "type": "header", "content": "Description" },
     { "type": "color", "id": "description_color", "label": "Description color", "default": "#ffffff" },
     {
@@ -1123,36 +1062,6 @@
       "unit": "px",
       "label": "Button padding horizontal (mobile)",
       "default": 18
-    },
-    {
-      "type": "range",
-      "id": "button_margin_top_desktop",
-      "min": 0,
-      "max": 48,
-      "step": 2,
-      "unit": "px",
-      "label": "Button margin top (desktop)",
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "button_margin_top_tablet",
-      "min": 0,
-      "max": 40,
-      "step": 2,
-      "unit": "px",
-      "label": "Button margin top (tablet)",
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "button_margin_top_mobile",
-      "min": 0,
-      "max": 32,
-      "step": 2,
-      "unit": "px",
-      "label": "Button margin top (mobile)",
-      "default": 8
     },
     { "type": "header", "content": "Overlay" },
     { "type": "color", "id": "overlay_color", "label": "Overlay color (default for slides)", "default": "#000000" },

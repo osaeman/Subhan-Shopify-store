@@ -75,8 +75,7 @@
   id="CollectionProductGrid-{{ section.id }}"
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }} collection-product-grid"
   style="
-        --product-grid-max-width-desktop: {{ section.settings.product_card_max_width_desktop }}px;
-
+    --product-grid-max-width-desktop: {{ section.settings.product_card_max_width_desktop }}px;
     --card-bg: {{ section.settings.product_card_bg }};
     --card-radius: {{ section.settings.product_card_radius }}px;
     --card-border-color: {{ section.settings.product_card_border_color }};
@@ -125,6 +124,42 @@
     --button-cart-color: {{ section.settings.button_cart_color }};
     --button-cart-bg-hover: {{ section.settings.button_cart_bg_hover }};
     --button-cart-color-hover: {{ section.settings.button_cart_color_hover }};
+        --media-radius: {{ section.settings.product_image_radius }}px;
+
+    --tag-font-size: {{ section.settings.product_tag_font_size }}px;
+    --tag-color: {{ section.settings.product_tag_color }};
+    --tag-font-weight: {{ section.settings.product_tag_font_weight }};
+    --tag-margin-bottom: {{ section.settings.product_tag_margin_bottom }}px;
+
+    --title-font-size: {{ section.settings.product_title_font_size }}px;
+    --title-color: {{ section.settings.product_title_color }};
+    --title-font-weight: {{ section.settings.product_title_font_weight }};
+    --title-line-height: {{ section.settings.product_title_line_height }};
+    --title-margin-bottom: {{ section.settings.product_title_margin_bottom }}px;
+
+    --rating-margin-bottom: {{ section.settings.rating_margin_bottom }}px;
+    --price-margin-bottom: {{ section.settings.price_margin_bottom }}px;
+
+    --button-height: {{ section.settings.button_height }}px;
+    --button-gap: {{ section.settings.button_gap }}px;
+
+    --badge-font-size: {{ section.settings.badge_font_size }}px;
+    --badge-color: {{ section.settings.badge_text_color }};
+    --badge-font-weight: {{ section.settings.badge_font_weight }};
+    --badge-bg: {{ section.settings.badge_bg_color }};
+    --badge-padding-y: {{ section.settings.badge_padding_vertical }}px;
+    --badge-padding-x: {{ section.settings.badge_padding_horizontal }}px;
+    --badge-radius: {{ section.settings.badge_radius }}px;
+    --badge-top: {{ section.settings.badge_top }}px;
+    --badge-left: {{ section.settings.badge_left }}px;
+
+    --wishlist-size: {{ section.settings.wishlist_circle_size }}px;
+    --wishlist-icon-size: {{ section.settings.wishlist_icon_size }}px;
+    --wishlist-icon-color: {{ section.settings.wishlist_icon_color }};
+    --wishlist-bg: {{ section.settings.wishlist_bg_color }};
+    --wishlist-border-color: {{ section.settings.wishlist_border_color }};
+    --wishlist-top: {{ section.settings.wishlist_top }}px;
+    --wishlist-right: {{ section.settings.wishlist_right }}px;
   "
 >
   {%- paginate collection.products by section.settings.products_per_page -%}
@@ -842,6 +877,302 @@
       "id": "button_cart_color_hover",
       "label": "Cart button hover icon color",
       "default": "#111111"
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "range",
+      "id": "product_image_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Product tag text"
+    },
+    {
+      "type": "range",
+      "id": "product_tag_font_size",
+      "label": "Tag font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "product_tag_color",
+      "label": "Tag color",
+      "default": "#b5b5c5"
+    },
+    {
+      "type": "range",
+      "id": "product_tag_font_weight",
+      "label": "Tag font weight",
+      "min": 400,
+      "max": 800,
+      "step": 100,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "product_tag_margin_bottom",
+      "label": "Tag margin bottom",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Product title"
+    },
+    {
+      "type": "range",
+      "id": "product_title_font_size",
+      "label": "Title font size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "product_title_font_weight",
+      "label": "Title font weight",
+      "min": 400,
+      "max": 800,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "product_title_line_height",
+      "label": "Title line height",
+      "min": 0.8,
+      "max": 2,
+      "step": 0.1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "product_title_margin_bottom",
+      "label": "Title margin bottom",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Rating and price spacing"
+    },
+    {
+      "type": "range",
+      "id": "rating_margin_bottom",
+      "label": "Stars margin bottom",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "price_margin_bottom",
+      "label": "Price margin bottom",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "range",
+      "id": "button_height",
+      "label": "Button height",
+      "min": 32,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "button_gap",
+      "label": "Buttons gap",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Discount badge"
+    },
+    {
+      "type": "range",
+      "id": "badge_font_size",
+      "label": "Badge font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#ff5370"
+    },
+    {
+      "type": "range",
+      "id": "badge_font_weight",
+      "label": "Badge font weight",
+      "min": 400,
+      "max": 800,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge background color",
+      "default": "rgba(255, 83, 112, 0.12)"
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_vertical",
+      "label": "Badge padding vertical",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_horizontal",
+      "label": "Badge padding horizontal",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "badge_radius",
+      "label": "Badge border radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "badge_top",
+      "label": "Badge top position",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "badge_left",
+      "label": "Badge left position",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Wishlist icon"
+    },
+    {
+      "type": "range",
+      "id": "wishlist_circle_size",
+      "label": "Wishlist circle size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "wishlist_icon_size",
+      "label": "Wishlist icon size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "wishlist_icon_color",
+      "label": "Wishlist icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "wishlist_bg_color",
+      "label": "Wishlist background color",
+      "default": "rgba(0, 0, 0, 0.42)"
+    },
+    {
+      "type": "color",
+      "id": "wishlist_border_color",
+      "label": "Wishlist border color",
+      "default": "rgba(255, 255, 255, 0.35)"
+    },
+    {
+      "type": "range",
+      "id": "wishlist_top",
+      "label": "Wishlist top position",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "wishlist_right",
+      "label": "Wishlist right position",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
     }
   ]
 }
