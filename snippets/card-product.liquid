@@ -162,13 +162,8 @@
           {%- comment -%} WISHLIST ICON (top-right, visual only) {%- endcomment -%}
           <div class="product-card-premium__wishlist" aria-hidden="true">
             <div class="product-card-premium__wishlist-circle">
-              <svg
-                class="product-card-premium__wishlist-icon"
-                viewBox="0 0 24 24"
-                focusable="false"
-                aria-hidden="true"
-              >
-                <path d="M12 20.5c-.3 0-.5-.1-.7-.3l-6-5.5A4.9 4.9 0 0 1 4 8.1C4.6 6 6.4 4.5 8.6 4.5c1.3 0 2.5.5 3.4 1.5a4.8 4.8 0 0 1 3.4-1.5c2.2 0 4 1.5 4.6 3.6c.4 1.7-.2 3.5-1.7 4.6l-6 5.5c-.2.2-.4.3-.7.3z" />
+              <svg class="product-card-premium__wishlist-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M241 87.1l15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1l0 2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7l0-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1z"/>
               </svg>
             </div>
           </div>
@@ -239,101 +234,64 @@
           <div class="product-card-premium__btn product-card-premium__btn--cart">
             {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
 
-            {% if quick_add == 'standard' %}
-              {%- comment -%}
-                Use existing quick-add markup, but visually constrain it into the 25% area.
-              {%- endcomment -%}
-              <div class="product-card-premium__quick-add">
-                {%- liquid
-                  assign qty_rules = false
-                  if card_product.selected_or_first_available_variant.quantity_rule.min > 1 or card_product.selected_or_first_available_variant.quantity_rule.max != null or card_product.selected_or_first_available_variant.quantity_rule.increment > 1
-                    assign qty_rules = true
-                  endif
-                -%}
-                {%- if card_product.variants_count > 1 or qty_rules -%}
-                  <modal-opener data-modal="#QuickAdd-{{ card_product.id }}">
-                    <button
-                      id="{{ product_form_id }}-submit"
-                      type="submit"
-                      name="add"
-                      class="product-card-premium__icon-button"
-                      aria-haspopup="dialog"
-                      aria-label="{{ 'products.product.quick_add' | t }}"
-                      data-product-url="{{ card_product.url }}"
+            <product-form data-section-id="{{ section_id }}">
+              {%- form 'product',
+                card_product,
+                id: product_form_id,
+                class: 'form',
+                novalidate: 'novalidate',
+                data-type: 'add-to-cart-form'
+              -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ current_variant.id }}"
+                  class="product-variant-id"
+                  {% unless current_variant.available %}
+                    disabled
+                  {% endunless %}
+                >
+
+                <button
+                  id="{{ product_form_id }}-submit"
+                  type="submit"
+                  name="add"
+                  class="product-card-premium__icon-button"
+                  aria-label="{{ 'products.product.add_to_cart' | t }}"
+                  aria-live="polite"
+                  data-sold-out-message="true"
+                  {% unless current_variant.available %}
+                    disabled
+                  {% endunless %}
+                >
+                  <span class="product-card-premium__cart-icon" aria-hidden="true">
+                    <svg
+                      viewBox="0 0 1024 1024"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      focusable="false"
                     >
-                      {{- 'icon-cart.svg' | inline_asset_content -}}
-                      {%- render 'loading-spinner' -%}
-                    </button>
-                  </modal-opener>
-                  {%- comment -%} keep existing modal structure below {%- endcomment -%}
-                  <quick-add-modal id="QuickAdd-{{ card_product.id }}" class="quick-add-modal">
-                    <div
-                      role="dialog"
-                      aria-label="{{ 'products.product.choose_product_options' | t: product_name: card_product.title | escape }}"
-                      aria-modal="true"
-                      class="quick-add-modal__content global-settings-popup"
-                      tabindex="-1"
-                    >
-                      <button
-                        id="ModalClose-{{ card_product.id }}"
-                        type="button"
-                        class="quick-add-modal__toggle"
-                        aria-label="{{ 'accessibility.close' | t }}"
-                      >
-                        {{- 'icon-close.svg' | inline_asset_content -}}
-                      </button>
-                      <div id="QuickAddInfo-{{ card_product.id }}" class="quick-add-modal__content-info"></div>
-                    </div>
-                  </quick-add-modal>
-                {%- else -%}
-                  <product-form data-section-id="{{ section.id }}">
-                    {%- form 'product',
-                      card_product,
-                      id: product_form_id,
-                      class: 'form',
-                      novalidate: 'novalidate',
-                      data-type: 'add-to-cart-form'
-                    -%}
-                      <input
-                        type="hidden"
-                        name="id"
-                        value="{{ card_product.selected_or_first_available_variant.id }}"
-                        class="product-variant-id"
-                        {% if card_product.selected_or_first_available_variant.available == false %}
-                          disabled
-                        {% endif %}
-                      >
-                      <button
-                        id="{{ product_form_id }}-submit"
-                        type="submit"
-                        name="add"
-                        class="product-card-premium__icon-button"
-                        aria-label="{{ 'products.product.add_to_cart' | t }}"
-                        aria-live="polite"
-                        data-sold-out-message="true"
-                        {% if card_product.selected_or_first_available_variant.available == false %}
-                          disabled
-                        {% endif %}
-                      >
-                        {{- 'icon-cart.svg' | inline_asset_content -}}
-                        <span class="sold-out-message hidden">
-                          {{ 'products.product.sold_out' | t }}
-                        </span>
-                        {%- render 'loading-spinner' -%}
-                      </button>
-                    {%- endform -%}
-                  </product-form>
-                {%- endif -%}
-              </div>
-            {% else %}
-              {%- comment -%}
-                For bulk or other quick_add modes, you can adapt similarly:
-                place their existing controls inside this right 25% area.
-              {%- endcomment -%}
-              <span class="product-card-premium__icon-placeholder">
-                {{- 'icon-cart.svg' | inline_asset_content -}}
-              </span>
-            {% endif %}
+                      <path
+                        d="M298.4 486.4c0-13.6 11.2-24.8 24-24.8 13.6 0 24 11.2 24 24.8v72.8c0 13.6-11.2 24.8-24 24.8-13.6 0-24-11.2-24-24.8v-72.8z m-48.8 0v72.8c0 40.8 32.8 73.6 72.8 73.6 40.8 0 72.8-32.8 72.8-73.6v-72.8c0-40.8-32.8-73.6-72.8-73.6s-72.8 32.8-72.8 73.6zM680 486.4c0-13.6 11.2-24.8 24-24.8 13.6 0 24 11.2 24 24.8v72.8c0 13.6-11.2 24.8-24 24.8-13.6 0-24-11.2-24-24.8v-72.8z m-48.8 0v72.8c0 40.8 32.8 73.6 72.8 73.6 40.8 0 72.8-32.8 72.8-73.6v-72.8c0-40.8-32.8-73.6-72.8-73.6s-72.8 32.8-72.8 73.6z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M343.2 438.4V227.2c0-94.4 76.8-170.4 170.4-170.4 94.4 0 170.4 76.8 170.4 170.4v211.2h48.8V227.2C732.8 106.4 635.2 8 513.6 8 392.8 8 294.4 106.4 294.4 227.2v211.2h48.8z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M912 1013.6H115.2c-32 0-62.4-14.4-83.2-39.2-20.8-24.8-28.8-57.6-22.4-88.8v-0.8L128 389.6C139.2 340 183.2 304 233.6 304h560c50.4 0 94.4 36 104.8 85.6l118.4 496.8c6.4 32-1.6 64-22.4 88.8-20 24.8-49.6 38.4-82.4 38.4zM56.8 895.2c-3.2 17.6 0.8 35.2 12 48.8 11.2 13.6 28 21.6 45.6 21.6H912c17.6 0 34.4-8 45.6-21.6 11.2-13.6 16-31.2 12-48.8l-118.4-496c-5.6-27.2-29.6-47.2-57.6-47.2h-560c-28 0-52.8 20-57.6 47.2v0.8L56.8 895.2z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                  <span class="sold-out-message hidden">
+                    {{ 'products.product.sold_out' | t }}
+                  </span>
+                  {%- render 'loading-spinner' -%}
+                </button>
+              {%- endform -%}
+            </product-form>
           </div>
         </div>
       </div>
@@ -393,3 +351,5 @@
     </div>
   </div>
 {%- endif -%}
+
+{% comment %} {{- 'icon-cart.svg' | inline_asset_content -}} {% endcomment %}

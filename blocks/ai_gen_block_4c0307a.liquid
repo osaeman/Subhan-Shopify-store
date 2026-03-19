@@ -173,8 +173,24 @@
        color: {{ block.settings.compare_price_color }};
        text-decoration: line-through;
        opacity: 0.7;
+       margin: 0;
      }
-  .ai-top-product-discount-text-{{ ai_gen_id }} { font-size: {{ block.settings.discount_text_font_size_desktop }}px; font-weight: {{ block.settings.discount_text_font_weight }}; color: {{ block.settings.discount_text_color }}; margin: 0; letter-spacing: {{ block.settings.discount_text_letter_spacing }}px; text-transform: {% if block.settings.discount_text_uppercase %}uppercase{% else %}none{% endif %}; padding: {{ block.settings.discount_text_padding_vertical }}px {{ block.settings.discount_text_padding_horizontal }}px; border-radius: {{ block.settings.discount_text_border_radius }}px; background: {{ block.settings.discount_text_background }}; line-height: 1; display: inline-flex; align-items: center; justify-content: center; } @media screen and (max-width: 749px) { .ai-top-product-discount-text-{{ ai_gen_id }} { font-size: {{ block.settings.discount_text_font_size_mobile }}px; } }
+    .ai-top-product-discount-text-{{ ai_gen_id }} {
+       display: inline-flex;
+       align-items: center;
+       justify-content: center;
+       font-size: {{ block.settings.discount_text_font_size_desktop }}px;
+       font-weight: {{ block.settings.discount_text_font_weight }};
+       color: {{ block.settings.discount_text_color }};
+       margin: 0;
+       letter-spacing: {{ block.settings.discount_text_letter_spacing }}px;
+       text-transform: {% if block.settings.discount_text_uppercase %}uppercase{% else %}none{% endif %};
+       padding: {{ block.settings.discount_text_padding_vertical }}px {{ block.settings.discount_text_padding_horizontal }}px;
+       border-radius: {{ block.settings.discount_text_border_radius }}px;
+       background: {{ block.settings.discount_text_background }};
+       line-height: 1;
+       white-space: nowrap;
+    }
      .ai-top-product-button-{{ ai_gen_id }} {
        display: inline-flex;
        align-items: center;
@@ -277,7 +293,13 @@
        }
 
        .ai-top-product-meta-{{ ai_gen_id }} {
-         margin: 0 0 {{ block.settings.meta_margin_bottom_mobile }}px 0;
+    font-size: {{ block.settings.meta_font_size_mobile }}px;
+    font-weight: {{ block.settings.meta_font_weight_mobile }};
+    margin: 0 0 {{ block.settings.meta_margin_bottom_mobile }}px 0;
+  }
+
+       .ai-top-product-compare-price-{{ ai_gen_id }} {
+         font-size: {{ block.settings.compare_price_font_size_mobile }}px;
        }
 
        .ai-top-product-description-{{ ai_gen_id }} {
@@ -286,13 +308,42 @@
        }
 
        .ai-top-product-sold-bar-{{ ai_gen_id }} {
-         margin: 0 0 {{ block.settings.sold_bar_margin_bottom_mobile }}px 0;
+         padding: {{ block.settings.sold_bar_padding_vertical_mobile }}px {{ block.settings.sold_bar_padding_horizontal }}px;
+         margin: 0 0 {{ block.settings.sold_bar_margin_bottom_mobile }}px 0;;
        }
+      .ai-top-product-sold-text-{{ ai_gen_id }} {
+        font-size: {{ block.settings.sold_text_font_size_mobile }}px;
+      }
 
-       .ai-top-product-price-wrapper-{{ ai_gen_id }} {
-         margin: 0 0 {{ block.settings.price_margin_bottom_mobile }}px 0;
-       }
+     .ai-top-product-meta-{{ ai_gen_id }} {
+        font-size: {{ block.settings.meta_font_size_mobile }}px;
+        font-weight: {{ block.settings.meta_font_weight_mobile }};
+        margin: 0 0 {{ block.settings.meta_margin_bottom_mobile }}px 0;
+      }
 
+      .ai-top-product-compare-price-{{ ai_gen_id }} {
+        font-size: {{ block.settings.compare_price_font_size_mobile }}px;
+      }
+
+      .ai-top-product-price-wrapper-{{ ai_gen_id }} {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: start;
+        align-items: center;
+        column-gap: {{ block.settings.price_gap }}px;
+        row-gap: 4px;
+        margin: 0 0 {{ block.settings.price_margin_bottom_mobile }}px 0;
+      }
+
+      .ai-top-product-discount-text-{{ ai_gen_id }} {
+        grid-column: 1 / -1;
+        justify-self: start;
+        width: auto;
+        max-width: max-content;
+        font-size: {{ block.settings.discount_text_font_size_mobile }}px;
+        padding: {{ block.settings.discount_text_padding_vertical_mobile }}px {{ block.settings.discount_text_padding_horizontal_mobile }}px;
+        white-space: normal;
+      }
        .ai-top-product-button-{{ ai_gen_id }} {
          font-size: {{ block.settings.button_font_size_mobile }}px;
          padding: {{ block.settings.button_padding_vertical_mobile }}px {{ block.settings.button_padding_horizontal_mobile }}px;
@@ -935,6 +986,25 @@
       "default": "#666666"
     },
     {
+      "type": "range",
+      "id": "meta_font_size_mobile",
+      "label": "Font size (mobile)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "meta_font_weight_mobile",
+      "label": "Font weight (mobile)",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 500
+    },
+    {
       "type": "color",
       "id": "description_color",
       "label": "Description color",
@@ -951,6 +1021,16 @@
       "id": "compare_price_color",
       "label": "Compare price color",
       "default": "#999999"
+    },
+    {
+      "type": "range",
+      "id": "compare_price_font_size_mobile",
+      "label": "Compare price font size (mobile)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
     },
     {
       "type": "header",
@@ -1243,6 +1323,26 @@
       "step": 1,
       "unit": "px",
       "default": 11
+    },
+    {
+      "type": "range",
+      "id": "discount_text_padding_vertical_mobile",
+      "label": "Discount text padding vertical (mobile)",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "discount_text_padding_horizontal_mobile",
+      "label": "Discount text padding horizontal (mobile)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 8
     },
     {
       "type": "range",
@@ -1543,6 +1643,26 @@
       "step": 2,
       "unit": "px",
       "default": 16
+    },
+    {
+      "type": "range",
+      "id": "sold_bar_padding_vertical_mobile",
+      "label": "Padding vertical (mobile)",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "sold_text_font_size_mobile",
+      "label": "Text font size (mobile)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
     },
     {
       "type": "range",

@@ -6,15 +6,18 @@
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
 
-{%- unless section.settings.quick_add == 'none' -%}
-  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
-{%- endunless -%}
+{% comment %}
+  {%- unless section.settings.quick_add == 'none' -%}
+    {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+  {%- endunless -%}
 
-{%- if section.settings.quick_add == 'standard' -%}
-  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
+  {%- if section.settings.quick_add == 'standard' -%}
+    <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+{% endcomment %}
 
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 {%- if section.settings.quick_add == 'bulk' -%}
   <script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
@@ -69,97 +72,102 @@
       row-gap: var(--grid-gap-mobile, 14px);
     }
   }
+  #CollectionProductGrid-{{ section.id }} {
+    background: var(--section-bg-color, transparent);
+  }
 {%- endstyle -%}
 
 <div
   id="CollectionProductGrid-{{ section.id }}"
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }} collection-product-grid"
   style="
-    --product-grid-max-width-desktop: {{ section.settings.product_card_max_width_desktop }}px;
-    --card-bg: {{ section.settings.product_card_bg }};
-    --card-radius: {{ section.settings.product_card_radius }}px;
-    --card-border-color: {{ section.settings.product_card_border_color }};
-    --card-border-width: {{ section.settings.product_card_border_width }}px;
-    --card-shadow: {{ section.settings.product_card_shadow }};
-    --card-shadow-hover: {{ section.settings.product_card_shadow_hover }};
-    --card-padding: {{ section.settings.product_card_padding_desktop }}px;
+     --product-grid-max-width-desktop: {{ section.settings.product_card_max_width_desktop }}px;
+     --card-bg: {{ section.settings.product_card_bg }};
+     --card-radius: {{ section.settings.product_card_radius }}px;
+     --card-border-color: {{ section.settings.product_card_border_color }};
+     --card-border-width: {{ section.settings.product_card_border_width }}px;
+     --card-shadow: {{ section.settings.product_card_shadow }};
+     --card-shadow-hover: {{ section.settings.product_card_shadow_hover }};
+     --card-padding: {{ section.settings.product_card_padding_desktop }}px;
 
-    --grid-columns-desktop: {{ section.settings.product_grid_columns_desktop }};
-    --grid-columns-tablet: {{ section.settings.product_grid_columns_tablet }};
-    --grid-columns-mobile: {{ section.settings.product_grid_columns_mobile }};
+     --grid-columns-desktop: {{ section.settings.product_grid_columns_desktop }};
+     --grid-columns-tablet: {{ section.settings.product_grid_columns_tablet }};
+     --grid-columns-mobile: {{ section.settings.product_grid_columns_mobile }};
 
-    --grid-gap-desktop: {{ section.settings.product_grid_gap_desktop }}px;
-    --grid-gap-tablet: {{ section.settings.product_grid_gap_tablet }}px;
-    --grid-gap-mobile: {{ section.settings.product_grid_gap_mobile }}px;
+     --grid-gap-desktop: {{ section.settings.product_grid_gap_desktop }}px;
+     --grid-gap-tablet: {{ section.settings.product_grid_gap_tablet }}px;
+     --grid-gap-mobile: {{ section.settings.product_grid_gap_mobile }}px;
 
-    --image-height-desktop: {{ section.settings.product_image_height_desktop }}px;
-    --image-height-tablet: {{ section.settings.product_image_height_tablet }}px;
-    --image-height-mobile: {{ section.settings.product_image_height_mobile }}px;
+     --image-height-desktop: {{ section.settings.product_image_height_desktop }}px;
+     --image-height-tablet: {{ section.settings.product_image_height_tablet }}px;
+     --image-height-mobile: {{ section.settings.product_image_height_mobile }}px;
 
-    --image-object-fit: {{ section.settings.product_image_object_fit }};
-    --image-object-position: {{ section.settings.product_image_object_position }};
+     --image-object-fit: {{ section.settings.product_image_object_fit }};
+     --image-object-position: {{ section.settings.product_image_object_position }};
 
-    --rating-star-size: {{ section.settings.rating_star_size }}px;
-    --rating-star-color: {{ section.settings.rating_star_color }};
-    --rating-gap: {{ section.settings.rating_gap }}px;
+     --rating-star-size: {{ section.settings.rating_star_size }}px;
+     --rating-star-color: {{ section.settings.rating_star_color }};
+     --rating-gap: {{ section.settings.rating_gap }}px;
 
-    --actual-price-color: {{ section.settings.actual_price_color }};
-    --actual-price-size: {{ section.settings.actual_price_size }}px;
-    --actual-price-weight: {{ section.settings.actual_price_weight }};
+     --actual-price-color: {{ section.settings.actual_price_color }};
+     --actual-price-size: {{ section.settings.actual_price_size }}px;
+     --actual-price-weight: {{ section.settings.actual_price_weight }};
 
-    --compare-price-color: {{ section.settings.compare_price_color }};
-    --compare-price-size: {{ section.settings.compare_price_size }}px;
-    --compare-price-weight: {{ section.settings.compare_price_weight }};
-    --compare-price-opacity: {{ section.settings.compare_price_opacity | divided_by: 100.0 }};
+     --compare-price-color: {{ section.settings.compare_price_color }};
+     --compare-price-size: {{ section.settings.compare_price_size }}px;
+     --compare-price-weight: {{ section.settings.compare_price_weight }};
+     --compare-price-opacity: {{ section.settings.compare_price_opacity | divided_by: 100.0 }};
 
-    --button-radius: {{ section.settings.button_radius }}px;
-    --button-padding-v: {{ section.settings.button_padding_vertical }}px;
-    --button-padding-h: {{ section.settings.button_padding_horizontal }}px;
-    --button-font-size: {{ section.settings.button_font_size }}px;
-    --button-font-weight: {{ section.settings.button_font_weight }};
-    --button-primary-bg: {{ section.settings.button_primary_bg }};
-    --button-primary-color: {{ section.settings.button_primary_color }};
-    --button-primary-bg-hover: {{ section.settings.button_primary_bg_hover }};
-    --button-cart-bg: {{ section.settings.button_cart_bg }};
-    --button-cart-color: {{ section.settings.button_cart_color }};
-    --button-cart-bg-hover: {{ section.settings.button_cart_bg_hover }};
-    --button-cart-color-hover: {{ section.settings.button_cart_color_hover }};
-        --media-radius: {{ section.settings.product_image_radius }}px;
+     --button-radius: {{ section.settings.button_radius }}px;
+     --button-padding-v: {{ section.settings.button_padding_vertical }}px;
+     --button-padding-h: {{ section.settings.button_padding_horizontal }}px;
+     --button-font-size: {{ section.settings.button_font_size }}px;
+     --button-font-weight: {{ section.settings.button_font_weight }};
+     --button-primary-bg: {{ section.settings.button_primary_bg }};
+     --button-primary-color: {{ section.settings.button_primary_color }};
+     --button-primary-bg-hover: {{ section.settings.button_primary_bg_hover }};
+     --button-cart-bg: {{ section.settings.button_cart_bg }};
+     --button-cart-color: {{ section.settings.button_cart_color }};
+     --button-cart-bg-hover: {{ section.settings.button_cart_bg_hover }};
+     --button-cart-color-hover: {{ section.settings.button_cart_color_hover }};
+     --section-bg-color: {{ section.settings.section_bg_color }};
+    --button-cart-icon-size: {{ section.settings.button_cart_icon_size }}px;
+         --media-radius: {{ section.settings.product_image_radius }}px;
 
-    --tag-font-size: {{ section.settings.product_tag_font_size }}px;
-    --tag-color: {{ section.settings.product_tag_color }};
-    --tag-font-weight: {{ section.settings.product_tag_font_weight }};
-    --tag-margin-bottom: {{ section.settings.product_tag_margin_bottom }}px;
+     --tag-font-size: {{ section.settings.product_tag_font_size }}px;
+     --tag-color: {{ section.settings.product_tag_color }};
+     --tag-font-weight: {{ section.settings.product_tag_font_weight }};
+     --tag-margin-bottom: {{ section.settings.product_tag_margin_bottom }}px;
 
-    --title-font-size: {{ section.settings.product_title_font_size }}px;
-    --title-color: {{ section.settings.product_title_color }};
-    --title-font-weight: {{ section.settings.product_title_font_weight }};
-    --title-line-height: {{ section.settings.product_title_line_height }};
-    --title-margin-bottom: {{ section.settings.product_title_margin_bottom }}px;
+     --title-font-size: {{ section.settings.product_title_font_size }}px;
+     --title-color: {{ section.settings.product_title_color }};
+     --title-font-weight: {{ section.settings.product_title_font_weight }};
+     --title-line-height: {{ section.settings.product_title_line_height }};
+     --title-margin-bottom: {{ section.settings.product_title_margin_bottom }}px;
 
-    --rating-margin-bottom: {{ section.settings.rating_margin_bottom }}px;
-    --price-margin-bottom: {{ section.settings.price_margin_bottom }}px;
+     --rating-margin-bottom: {{ section.settings.rating_margin_bottom }}px;
+     --price-margin-bottom: {{ section.settings.price_margin_bottom }}px;
 
-    --button-height: {{ section.settings.button_height }}px;
-    --button-gap: {{ section.settings.button_gap }}px;
+     --button-height: {{ section.settings.button_height }}px;
+     --button-gap: {{ section.settings.button_gap }}px;
 
-    --badge-font-size: {{ section.settings.badge_font_size }}px;
-    --badge-color: {{ section.settings.badge_text_color }};
-    --badge-font-weight: {{ section.settings.badge_font_weight }};
-    --badge-bg: {{ section.settings.badge_bg_color }};
-    --badge-padding-y: {{ section.settings.badge_padding_vertical }}px;
-    --badge-padding-x: {{ section.settings.badge_padding_horizontal }}px;
-    --badge-radius: {{ section.settings.badge_radius }}px;
-    --badge-top: {{ section.settings.badge_top }}px;
-    --badge-left: {{ section.settings.badge_left }}px;
+     --badge-font-size: {{ section.settings.badge_font_size }}px;
+     --badge-color: {{ section.settings.badge_text_color }};
+     --badge-font-weight: {{ section.settings.badge_font_weight }};
+     --badge-bg: {{ section.settings.badge_bg_color }};
+     --badge-padding-y: {{ section.settings.badge_padding_vertical }}px;
+     --badge-padding-x: {{ section.settings.badge_padding_horizontal }}px;
+     --badge-radius: {{ section.settings.badge_radius }}px;
+     --badge-top: {{ section.settings.badge_top }}px;
+     --badge-left: {{ section.settings.badge_left }}px;
 
-    --wishlist-size: {{ section.settings.wishlist_circle_size }}px;
-    --wishlist-icon-size: {{ section.settings.wishlist_icon_size }}px;
-    --wishlist-icon-color: {{ section.settings.wishlist_icon_color }};
-    --wishlist-bg: {{ section.settings.wishlist_bg_color }};
-    --wishlist-border-color: {{ section.settings.wishlist_border_color }};
-    --wishlist-top: {{ section.settings.wishlist_top }}px;
-    --wishlist-right: {{ section.settings.wishlist_right }}px;
+     --wishlist-size: {{ section.settings.wishlist_circle_size }}px;
+     --wishlist-icon-size: {{ section.settings.wishlist_icon_size }}px;
+     --wishlist-icon-color: {{ section.settings.wishlist_icon_color }};
+     --wishlist-bg: {{ section.settings.wishlist_bg_color }};
+     --wishlist-border-color: {{ section.settings.wishlist_border_color }};
+     --wishlist-top: {{ section.settings.wishlist_top }}px;
+     --wishlist-right: {{ section.settings.wishlist_right }}px;
   "
 >
   {%- paginate collection.products by section.settings.products_per_page -%}
@@ -509,6 +517,12 @@
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background color",
+      "default": "#ffffff"
     },
     {
       "type": "range",
@@ -877,6 +891,16 @@
       "id": "button_cart_color_hover",
       "label": "Cart button hover icon color",
       "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "button_cart_icon_size",
+      "label": "Cart button icon size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 20
     },
     {
       "type": "header",
