@@ -261,14 +261,22 @@
         }
 
         .section-{{ section.id }}-padding .product__variant-tag {
-          margin: 0;
-          margin-top: {{ section.settings.variant_tag_margin_top_mobile }}px;
-          font-size: {{ section.settings.variant_tag_size }}px;
-          font-weight: {{ section.settings.variant_tag_weight }};
-          line-height: 1.4;
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
-          color: {{ section.settings.variant_tag_color }};
+           margin: 0;
+           margin-top: {{ section.settings.variant_tag_margin_top_mobile }}px;
+           display: inline-flex;
+           align-items: center;
+           justify-content: center;
+           width: fit-content;
+           max-width: 100%;
+           padding: {{ section.settings.variant_tag_padding_vertical_mobile }}px {{ section.settings.variant_tag_padding_horizontal_mobile }}px;
+           font-size: {{ section.settings.variant_tag_size }}px;
+           font-weight: {{ section.settings.variant_tag_weight }};
+           line-height: 1.4;
+           letter-spacing: 0.04em;
+           text-transform: uppercase;
+           color: {{ section.settings.variant_tag_color }};
+           background: {{ section.settings.variant_tag_bg_color }};
+           border-radius: {{ section.settings.variant_tag_radius }}px;
         }
 
         .section-{{ section.id }}-padding .product__pricing-row {
@@ -1214,6 +1222,9 @@
             max-width: calc(50% - ({{ section.settings.button_gap_desktop }}px / 2));
             width: calc(50% - ({{ section.settings.button_gap_desktop }}px / 2)) !important;
           }
+          .section-{{ section.id }}-padding .product__variant-tag {
+            padding: {{ section.settings.variant_tag_padding_vertical_desktop }}px {{ section.settings.variant_tag_padding_horizontal_desktop }}px;
+          }
         }
 
         /* =========================
@@ -1850,8 +1861,6 @@
                 %}
 
               {%- when 'variant_picker' -%}
-                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
-
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,
@@ -3943,7 +3952,7 @@
       "type": "range",
       "id": "product_grid_gap_desktop",
       "label": "Grid gap desktop",
-      "min": 10,
+      "min": 0,
       "max": 80,
       "step": 2,
       "unit": "px",
@@ -3953,7 +3962,7 @@
       "type": "range",
       "id": "product_grid_gap_tablet",
       "label": "Grid gap tablet",
-      "min": 10,
+      "min": 0,
       "max": 60,
       "step": 2,
       "unit": "px",
@@ -3963,7 +3972,7 @@
       "type": "range",
       "id": "product_grid_gap_mobile",
       "label": "Grid gap mobile",
-      "min": 8,
+      "min": 0,
       "max": 40,
       "step": 2,
       "unit": "px",
@@ -4161,6 +4170,62 @@
       "id": "variant_tag_color",
       "label": "Variant tag color",
       "default": "#6b7280"
+    },
+    {
+      "type": "color",
+      "id": "variant_tag_bg_color",
+      "label": "Variant tag background color",
+      "default": "#f3f4f6"
+    },
+    {
+      "type": "range",
+      "id": "variant_tag_radius",
+      "label": "Variant tag border radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "variant_tag_padding_vertical_mobile",
+      "label": "Variant tag vertical padding mobile",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "variant_tag_padding_horizontal_mobile",
+      "label": "Variant tag horizontal padding mobile",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "variant_tag_padding_vertical_desktop",
+      "label": "Variant tag vertical padding desktop",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "variant_tag_padding_horizontal_desktop",
+      "label": "Variant tag horizontal padding desktop",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 14
     },
     {
       "type": "range",
