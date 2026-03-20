@@ -310,7 +310,7 @@
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: {{ section.settings.discount_text_padding_vertical }}px {{ section.settings.discount_text_padding_horizontal }}px;
+          Padding: 8px 18px;
           border-radius: 999px;
           background: {{ section.settings.discount_text_bg }};
           font-size: {{ section.settings.discount_text_size }}px;
@@ -1229,6 +1229,9 @@
           }
           .section-{{ section.id }}-padding .product-form__quantity .quantity {
             min-height: {{ section.settings.quantity_box_height }}px;
+          }
+          .section-{{ section.id }}-padding .product__discount-text{
+            padding: {{ section.settings.discount_text_padding_vertical }}px {{ section.settings.discount_text_padding_horizontal }}px;
           }
         }
 
