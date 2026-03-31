@@ -1,1 +1,117 @@
-{"name":"t:sections.header.name","type":"header","sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"announcement_Dqa4xb":{"type":"announcement","settings":{"text":"WELCOME TO FH EMPORIUM","link":""}},"announcement-bar-0":{"type":"announcement","settings":{"text":"FLASH SALE ON EASTERN WEAR - SAVE BIG TODAY!","link":""}},"announcement_bEVgpf":{"type":"announcement","settings":{"text":"WEAR YOUR GRACE WITH CONFIDENCE","link":""}}},"block_order":["announcement_Dqa4xb","announcement-bar-0","announcement_bEVgpf"],"custom_css":[".announcement-bar__message {font-size: 14.5px; }","@media (max-width: 768px) {.announcement-bar__message {font-size: 11.5px; } .announcement-bar__announcement {height: 46px; }}"],"settings":{"auto_rotate":true,"change_slides_speed":3,"color_scheme":"scheme-3","show_line_separator":true,"show_social":false,"enable_country_selector":false,"enable_language_selector":false}},"header":{"type":"header","settings":{"logo_position":"middle-left","mobile_logo_position":"left","menu":"main-menu","menu_type_desktop":"dropdown","sticky_header_type":"always","show_line_separator":false,"color_scheme":"scheme-1","menu_color_scheme":"scheme-1","enable_country_selector":true,"enable_language_selector":true,"enable_customer_avatar":true,"margin_bottom":0,"padding_top":12,"padding_bottom":12}}},"order":["announcement-bar","header"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_Dqa4xb": {
+          "type": "announcement",
+          "settings": {
+            "text": "WELCOME TO FH EMPORIUM",
+            "link": ""
+          }
+        },
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "FLASH SALE ON EASTERN WEAR - SAVE BIG TODAY!",
+            "link": ""
+          }
+        },
+        "announcement_bEVgpf": {
+          "type": "announcement",
+          "settings": {
+            "text": "WEAR YOUR GRACE WITH CONFIDENCE",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_Dqa4xb",
+        "announcement-bar-0",
+        "announcement_bEVgpf"
+      ],
+      "custom_css": [
+        ".announcement-bar__message {font-size: 14.5px;}",
+        "@media (max-width: 768px) {.announcement-bar__message {font-size: 11.5px; } .announcement-bar__announcement {height: 46px; }}"
+      ],
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 3,
+        "color_scheme": "scheme-3",
+        "text_size_mobile": 13,
+        "text_size_desktop": 16,
+        "text_color": "#ffffff",
+        "line_height_mobile": 140,
+        "line_height_desktop": 140,
+        "font_weight": "500",
+        "bar_height_mobile": 40,
+        "bar_height_desktop": 48,
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "left",
+        "logo_text_size_desktop": 24,
+        "logo_text_weight_desktop": 600,
+        "logo_text_color_desktop": "#2e2a39",
+        "logo_text_margin_right_desktop": 0,
+        "logo_text_padding_desktop": 0,
+        "logo_text_size_tablet": 20,
+        "logo_text_weight_tablet": 600,
+        "logo_text_color_tablet": "#2e2a39",
+        "logo_text_margin_right_tablet": 0,
+        "logo_text_padding_tablet": 0,
+        "logo_text_size_mobile": 17,
+        "logo_text_weight_mobile": 600,
+        "logo_text_color_mobile": "#2e2a39",
+        "logo_text_margin_right_mobile": 0,
+        "logo_text_padding_mobile": 0,
+        "logo_width_desktop": 140,
+        "logo_height_desktop": 60,
+        "logo_object_fit_desktop": "contain",
+        "logo_object_position_desktop": "center",
+        "logo_width_tablet": 120,
+        "logo_height_tablet": 50,
+        "logo_object_fit_tablet": "contain",
+        "logo_object_position_tablet": "center",
+        "logo_width_mobile": 100,
+        "logo_height_mobile": 40,
+        "logo_object_fit_mobile": "contain",
+        "logo_object_position_mobile": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "always",
+        "show_line_separator": false,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "enable_customer_avatar": false,
+        "margin_bottom": 0,
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}
