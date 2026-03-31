@@ -15,7 +15,7 @@
         "slide_we9Rcz": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/10.jpg",
+            "image_desktop": "shopify://shop_images/7.png",
             "image_alt": "",
             "image_object_fit_desktop": "cover",
             "image_object_fit_tablet": "cover",
@@ -67,7 +67,7 @@
         "slide_7Jjwhn": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/1.png",
+            "image_desktop": "shopify://shop_images/10.jpg",
             "image_alt": "",
             "image_object_fit_desktop": "cover",
             "image_object_fit_tablet": "cover",
@@ -265,7 +265,7 @@
             "heading_margin_bottom": 30,
             "heading_margin_bottom_tablet": 30,
             "heading_margin_bottom_mobile": 20,
-            "image": "shopify://shop_images/11_2.png",
+            "image": "shopify://shop_images/14.png",
             "image_width": 50,
             "image_width_tablet": 45,
             "image_height": 400,
@@ -748,7 +748,7 @@
             "card_description_font_weight": "400",
             "card_description_line_height": 1.5,
             "card_description_color": "#666666",
-            "card_1_image": "shopify://shop_images/Gemini_Generated_Image_3n5uj03n5uj03n5u.png",
+            "card_1_image": "shopify://shop_images/Gemini_Generated_Image_3n5uj03n5uj03n5u_1.png",
             "card_1_title": "Premium Quality",
             "card_1_subtitle": "Crafted With Care",
             "card_1_description": "<p>We use premium fabrics and expert craftsmanship to create luxurious, comfortable pieces you’ll love.</p>",
