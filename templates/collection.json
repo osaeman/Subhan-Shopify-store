@@ -75,7 +75,7 @@
         "section_bg_color": "#ffffff",
         "padding_top": 28,
         "padding_bottom": 88,
-        "product_card_max_width_desktop": 1200,
+        "product_card_max_width_desktop": 1300,
         "product_card_bg": "#fdfbf7",
         "product_card_radius": 14,
         "product_card_border_color": "rgba(0,0,0,0)",
