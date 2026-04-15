@@ -91,7 +91,7 @@
         "product_grid_gap_mobile": 12,
         "product_image_height_desktop": 300,
         "product_image_height_tablet": 300,
-        "product_image_height_mobile": 300,
+        "product_image_height_mobile": 350,
         "product_image_object_fit": "cover",
         "product_image_object_position": "center",
         "rating_star_size": 15,
